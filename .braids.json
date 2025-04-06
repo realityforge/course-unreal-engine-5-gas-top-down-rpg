@@ -1,0 +1,15 @@
+{
+  "config_version": 1,
+  "mirrors": {
+    "Plugins/MDMetaDataEditor": {
+      "url": "https://github.com/DoubleDeez/MDMetaDataEditor.git",
+      "branch": "main",
+      "revision": "fa6c0b99f138d585eeac64be3658ae2a5fe3cb1d"
+    },
+    "Plugins/RuleRanger": {
+      "url": "https://github.com/realityforge/RuleRanger.git",
+      "branch": "main",
+      "revision": "76a16c543a80430962d7ad3cdcb2ae4e2c354f6d"
+    }
+  }
+}
