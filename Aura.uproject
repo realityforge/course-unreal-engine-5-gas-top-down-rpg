@@ -15,6 +15,13 @@
   ],
   "Plugins": [
     {
+      "Name": "RuleRanger",
+      "Enabled": true,
+      "TargetAllowList": [
+        "Editor"
+      ]
+    },
+    {
       "Name": "ModelingToolsEditorMode",
       "Enabled": true,
       "TargetAllowList": [
