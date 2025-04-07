@@ -8,13 +8,13 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="cpp" />
       <option name="immediateSync" value="false" />
-      <option name="name" value="Format C++ Files Windows" />
+      <option name="name" value="Format C++ Files" />
       <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$PROJECT_DIR$/../../../Program Files/Python310/python" />
+      <option name="program" value="$PyInterpreterDirectory$/python" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Aura" />
       <option name="trackOnlyRoot" value="false" />
@@ -28,13 +28,13 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="h" />
       <option name="immediateSync" value="false" />
-      <option name="name" value="Format C++ Header Files Windows" />
+      <option name="name" value="Format C++ Header Files" />
       <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$PROJECT_DIR$/../../../Program Files/Python310/python" />
+      <option name="program" value="$PyInterpreterDirectory$/python" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Aura" />
       <option name="trackOnlyRoot" value="false" />
@@ -48,13 +48,13 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="cs" />
       <option name="immediateSync" value="false" />
-      <option name="name" value="Format C# Files Windows" />
+      <option name="name" value="Format C# Files" />
       <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$PROJECT_DIR$/../../../Program Files/Python310/python" />
+      <option name="program" value="$PyInterpreterDirectory$/python" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Aura" />
       <option name="trackOnlyRoot" value="false" />
@@ -68,13 +68,13 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="uproject" />
       <option name="immediateSync" value="false" />
-      <option name="name" value="Format Unreal Engine project Files Windows" />
+      <option name="name" value="Format Unreal Engine Project Files" />
       <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$PROJECT_DIR$/../../../Program Files/Python310/python" />
+      <option name="program" value="$PyInterpreterDirectory$/python" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Aura" />
       <option name="trackOnlyRoot" value="false" />
@@ -88,13 +88,13 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="uplugin" />
       <option name="immediateSync" value="false" />
-      <option name="name" value="Format Unreal Engine plugin Files Windows Copy" />
+      <option name="name" value="Format Unreal Engine Plugin Files" />
       <option name="output" value="$FilePath$" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$PROJECT_DIR$/../../../Program Files/Python310/python" />
+      <option name="program" value="$PyInterpreterDirectory$/python" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Aura" />
       <option name="trackOnlyRoot" value="false" />
