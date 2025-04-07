@@ -1,4 +1,0 @@
----,ObjectType,Variant,Prefix,Suffix,Description
-CommonButtonStyle,"/Script/CommonUI.CommonButtonStyle","","ButtonStyle_","",""
-CommonTextStyle,"/Script/CommonUI.CommonTextStyle","","TextStyle_","",""
-CommonInputControllerData,"/Script/CommonInput.CommonInputBaseControllerData","","ControllerData_","",""
