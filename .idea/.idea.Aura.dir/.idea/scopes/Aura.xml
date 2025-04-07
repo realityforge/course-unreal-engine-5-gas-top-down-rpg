@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Aura" pattern="file:Aura.uproject||file:Source/Aura//*||file:Plugins/RuleRanger/RuleRanger.uplugin||file:Plugins/RuleRanger/Source//*" />
+</component>
