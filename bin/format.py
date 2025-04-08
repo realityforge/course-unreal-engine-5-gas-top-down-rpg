@@ -33,6 +33,7 @@ if args.verbose:
     else:
         print(f"Performing Source Code Formatting. Files: {args.files}")
 
+
 def format_json(filename, dry_run):
     with open(filename, "r") as file:
         original_data = file.read()
