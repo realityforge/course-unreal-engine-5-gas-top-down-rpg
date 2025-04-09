@@ -14,4 +14,8 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+
+    /** Mesh representing the weapon the character is carrying. */
+    UPROPERTY(EditAnywhere, Category = "Combat")
+    TObjectPtr<USkeletalMeshComponent> Weapon{ nullptr };
 };
