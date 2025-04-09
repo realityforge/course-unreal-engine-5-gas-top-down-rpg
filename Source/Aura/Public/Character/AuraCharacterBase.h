@@ -12,6 +12,10 @@ class AURA_API AAuraCharacterBase : public ACharacter
 public:
     AAuraCharacterBase();
 
+#if WITH_EDITOR
+    virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
+#endif
+
 protected:
     virtual void BeginPlay() override;
 
