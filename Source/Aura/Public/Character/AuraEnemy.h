@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "AuraEnemy.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class AURA_API AAuraEnemy : public AAuraCharacterBase
 {
     GENERATED_BODY()
