@@ -12,13 +12,16 @@ EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext&
 {
     auto Result = CombineDataValidationResults(Super::IsDataValid(Context), EDataValidationResult::Valid);
 
-    if (!GetClass()->HasAnyClassFlags(CLASS_Abstract) && !IsValid(InputMappingContext))
+    if (!GetClass()->HasAnyClassFlags(CLASS_Abstract))
     {
-        const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
-                                                 "the property InputMappingContext"),
-                                            *GetActorNameOrLabel());
-        Context.AddError(FText::FromString(String));
-        Result = EDataValidationResult::Invalid;
+        if (!IsValid(InputMappingContext))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
+                                                     "the property InputMappingContext"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
     }
 
     return Result;
