@@ -1,4 +1,5 @@
 #include "Player/AuraPlayerController.h"
+#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "Misc/DataValidation.h"
@@ -22,9 +23,28 @@ EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext&
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
         }
+        if (!IsValid(MoveAction))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
+                                                     "the property MoveAction"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
     }
 
     return Result;
+}
+
+void AAuraPlayerController::SetupInputComponent()
+{
+    Super::SetupInputComponent();
+
+    auto EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+
+    check(MoveAction);
+
+    EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -43,4 +63,23 @@ void AAuraPlayerController::BeginPlay()
     InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
     InputModeData.SetHideCursorDuringCapture(false);
     SetInputMode(InputModeData);
+}
+
+void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
+{
+    const auto InputAxisVector = InputActionValue.Get<FVector2D>();
+
+    const FRotator Rotation = GetControlRotation();
+    const FRotator YawRotation{ 0.f, Rotation.Yaw, 0 };
+
+    const FRotationMatrix RotationMatrix(YawRotation);
+
+    const FVector ForwardDirection{ RotationMatrix.GetUnitAxis(EAxis::X) };
+    const FVector RightDirection{ RotationMatrix.GetUnitAxis(EAxis::Y) };
+
+    if (const auto ControlledPawn = GetPawn<APawn>())
+    {
+        ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
+        ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+    }
 }
