@@ -2,6 +2,6 @@
 
 AAuraPlayerState::AAuraPlayerState()
 {
-    // This is quite a high update frequency. Perhaps we should lower it in a the final gream
+    // This is quite a high update frequency. Perhaps we should lower it in the final game
     SetNetUpdateFrequency(100.f);
 }
