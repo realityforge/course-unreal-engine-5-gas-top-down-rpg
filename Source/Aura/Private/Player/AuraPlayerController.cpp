@@ -73,6 +73,7 @@ void AAuraPlayerController::BeginPlay()
     SetInputMode(InputModeData);
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
     const auto InputAxisVector = InputActionValue.Get<FVector2D>();
