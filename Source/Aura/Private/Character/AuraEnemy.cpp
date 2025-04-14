@@ -1,14 +1,24 @@
 #include "Character/AuraEnemy.h"
-#include "Logging/StructuredLog.h"
+#include "Aura/Aura.h"
 
 void AAuraEnemy::HighlightActor()
 {
-    bHighlighted = true;
-    UE_LOGFMT(LogTemp, Display, "AuraEnemy {ActorName} highligheted", GetActorNameOrLabel());
+    GetMesh()->SetRenderCustomDepth(true);
+    GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+    if (Weapon)
+    {
+        Weapon->SetRenderCustomDepth(true);
+        Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+    }
 }
 
 void AAuraEnemy::UnHighlightActor()
 {
-    bHighlighted = false;
-    UE_LOGFMT(LogTemp, Display, "AuraEnemy {ActorName} un-highligheted", GetActorNameOrLabel());
+    if (Weapon)
+    {
+        Weapon->SetRenderCustomDepth(false);
+        Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_CLEAR);
+    }
+    GetMesh()->SetRenderCustomDepth(false);
+    GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_CLEAR);
 }
