@@ -1,4 +1,6 @@
 #include "Character/AuraEnemy.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/AuraAttributeSet.h"
 #include "Aura/Aura.h"
 
 AAuraEnemy::AAuraEnemy()
@@ -6,6 +8,11 @@ AAuraEnemy::AAuraEnemy()
     // Block visibility. Used so that the under cursor trace (for highlighting) will
     // intersect with enemy mesh.
     GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
+    AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
+    AbilitySystemComponent->SetIsReplicated(true);
+
+    AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 }
 
 void AAuraEnemy::HighlightActor()

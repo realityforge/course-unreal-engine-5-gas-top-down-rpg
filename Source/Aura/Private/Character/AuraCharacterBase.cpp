@@ -12,6 +12,11 @@ AAuraCharacterBase::AAuraCharacterBase()
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+{
+    return AbilitySystemComponent;
+}
+
 #if WITH_EDITOR
 EDataValidationResult AAuraCharacterBase::IsDataValid(FDataValidationContext& Context) const
 {
