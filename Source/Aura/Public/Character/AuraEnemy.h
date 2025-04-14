@@ -10,6 +10,9 @@ class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
 {
     GENERATED_BODY()
 
+    UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Highlight", meta = (AllowPrivateAccess = true))
+    bool bHighlighted{ false };
+
 public:
     virtual void HighlightActor() override;
     virtual void UnHighlightActor() override;
