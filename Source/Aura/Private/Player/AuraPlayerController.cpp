@@ -2,11 +2,19 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
+#include "Interaction/EnemyInterface.h"
 #include "Misc/DataValidation.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
     bReplicates = true;
+}
+
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+    Super::PlayerTick(DeltaTime);
+
+    CursorTrace();
 }
 
 EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext& Context) const
@@ -81,5 +89,36 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
     {
         ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
         ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+    }
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+    FHitResult CursorHit;
+    GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+    if (CursorHit.bBlockingHit)
+    {
+        LastActorUnderCursor = CurrentActorUnderCursor;
+        CurrentActorUnderCursor = CursorHit.GetActor();
+
+        if (LastActorUnderCursor)
+        {
+            if (CurrentActorUnderCursor != LastActorUnderCursor)
+            {
+                // Last actor set, and does not match current actor => Unhighlight last
+                LastActorUnderCursor->UnHighlightActor();
+
+                if (CurrentActorUnderCursor)
+                {
+                    // Last actor set, Current actor set and actors do not match => Highlight current
+                    CurrentActorUnderCursor->HighlightActor();
+                }
+            }
+        }
+        else if (CurrentActorUnderCursor)
+        {
+            // Current actor set, no last actor set => Highlight current
+            CurrentActorUnderCursor->HighlightActor();
+        }
     }
 }

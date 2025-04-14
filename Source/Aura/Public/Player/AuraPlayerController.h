@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Interaction/EnemyInterface.h"
 #include "AuraPlayerController.generated.h"
 
 struct FInputActionValue;
@@ -18,6 +19,8 @@ class AURA_API AAuraPlayerController : public APlayerController
 
 public:
     AAuraPlayerController();
+
+    virtual void PlayerTick(float DeltaTime) override;
 
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
@@ -36,4 +39,9 @@ private:
     TObjectPtr<UInputAction> MoveAction{ nullptr };
 
     void Move(const FInputActionValue& InputActionValue);
+
+    TScriptInterface<IEnemyInterface> LastActorUnderCursor{ nullptr };
+    TScriptInterface<IEnemyInterface> CurrentActorUnderCursor{ nullptr };
+
+    void CursorTrace();
 };
