@@ -31,3 +31,9 @@ void AAuraEnemy::UnHighlightActor()
     GetMesh()->SetRenderCustomDepth(false);
     GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_CLEAR);
 }
+
+void AAuraEnemy::BeginPlay()
+{
+    Super::BeginPlay();
+    AbilitySystemComponent->InitAbilityActorInfo(this, this);
+}
