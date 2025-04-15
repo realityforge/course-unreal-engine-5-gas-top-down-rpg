@@ -2,7 +2,14 @@
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
-UAuraAttributeSet::UAuraAttributeSet() {}
+UAuraAttributeSet::UAuraAttributeSet()
+{
+    InitHealth(100.f);
+    InitMaxHealth(100.f);
+
+    InitMana(50.f);
+    InitMaxMana(50.f);
+}
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
