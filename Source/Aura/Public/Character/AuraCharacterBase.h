@@ -16,7 +16,9 @@ class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInte
 public:
     AAuraCharacterBase();
 
+#pragma region IAbilitySystemInterface
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+#pragma endregion
 
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
