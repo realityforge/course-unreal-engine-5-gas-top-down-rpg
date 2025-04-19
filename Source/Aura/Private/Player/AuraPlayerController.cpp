@@ -60,10 +60,10 @@ void AAuraPlayerController::BeginPlay()
     Super::BeginPlay();
     checkf(InputMappingContext, TEXT("InputMappingContext not specified"));
 
-    auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-    checkf(Subsystem, TEXT("EnhancedInputLocalPlayerSubsystem not enabled for project"));
-
-    Subsystem->AddMappingContext(InputMappingContext, 0);
+    if (auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+    {
+        Subsystem->AddMappingContext(InputMappingContext, 0);
+    }
 
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
