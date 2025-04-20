@@ -27,9 +27,9 @@ void AAuraHUD::InitOverlay(APlayerController* PlayerController,
     checkf(OverlayWidgetControllerClass, TEXT("AAuraHUD has not specified the property OverlayWidgetControllerClass"));
     OverlayWidget = CreateWidget<UAuraUserWidget>(GetWorld(), OverlayWidgetClass);
 
-    auto OverlayWidgetController = GetOverlayWidgetController(
+    const auto WidgetController = GetOverlayWidgetController(
         FWidgetControllerParams{ PlayerController, PlayerState, AbilitySystemComponent, AttributeSet });
-    OverlayWidget->SetWidgetController(OverlayWidgetController);
+    OverlayWidget->SetWidgetController(WidgetController);
     OverlayWidget->AddToViewport();
 }
 
