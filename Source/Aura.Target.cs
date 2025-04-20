@@ -10,6 +10,6 @@ public class AuraTarget : TargetRules
         DefaultBuildSettings = BuildSettingsVersion.V5;
         IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_5;
 
-        ExtraModuleNames.AddRange(new string[] { "Aura" });
+        ExtraModuleNames.AddRange(new[] { "Aura" });
     }
 }
