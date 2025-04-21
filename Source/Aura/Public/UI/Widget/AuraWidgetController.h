@@ -47,6 +47,17 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetWidgetControllerParams(const FWidgetControllerParams& WidgetControllerParams);
 
+    /**
+     * Method that emits any events from controller to setup initial values exposed to any views.
+     */
+    virtual void BroadcastInitialValues();
+
+    /**
+     * Method responsible for adding delegates to receive changes that the controller attempts to monitor.
+     * For example, this is where we bind delegates to montior attribute changes or effect characteristics.
+     */
+    virtual void BindCallbacksToDependencies();
+
 protected:
     UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
     TObjectPtr<APlayerController> PlayerController{ nullptr };
