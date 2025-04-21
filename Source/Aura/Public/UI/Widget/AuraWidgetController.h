@@ -54,7 +54,7 @@ public:
 
     /**
      * Method responsible for adding delegates to receive changes that the controller attempts to monitor.
-     * For example, this is where we bind delegates to montior attribute changes or effect characteristics.
+     * For example, this is where we bind delegates to monitor attribute changes or effect characteristics.
      */
     virtual void BindCallbacksToDependencies();
 
