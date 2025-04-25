@@ -1,47 +1,53 @@
 #include "Actor/AuraEffectActor.h"
-#include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Components/SphereComponent.h"
+#include "Misc/DataValidation.h"
 
 AAuraEffectActor::AAuraEffectActor()
 {
-    Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-    SetRootComponent(Mesh);
-
-    CollisionSphere = CreateDefaultSubobject<USphereComponent>("CollisionSphere");
-    CollisionSphere->SetupAttachment(GetRootComponent());
+    SetRootComponent(CreateDefaultSubobject<USceneComponent>("SceneRoot"));
 }
 
-void AAuraEffectActor::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
-                                      AActor* OtherActor,
-                                      UPrimitiveComponent* OtherComp,
-                                      int32 OtherBodyIndex,
-                                      bool bFromSweep,
-                                      const FHitResult& SweepResult)
+#if WITH_EDITOR
+EDataValidationResult AAuraEffectActor::IsDataValid(FDataValidationContext& Context) const
 {
-    // TODO: Change this to use GameplayEffect in the future rather than using ugly const_cast
-    if (const auto ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
+    auto Result = CombineDataValidationResults(Super::IsDataValid(Context), EDataValidationResult::Valid);
+
+    if (!GetClass()->HasAnyClassFlags(CLASS_Abstract))
     {
-        const auto AuraAttributeSet =
-            CastChecked<UAuraAttributeSet>(ASC->GetAttributeSet(UAuraAttributeSet::StaticClass()));
-        const auto MutableAuraAttributes = const_cast<UAuraAttributeSet*>(AuraAttributeSet);
-        MutableAuraAttributes->SetHealth(AuraAttributeSet->GetHealth() + 25.f);
-        MutableAuraAttributes->SetMana(AuraAttributeSet->GetMana() + 25.f);
-        Destroy();
+        if (!IsValid(InstanceGameplayEffectClass))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
+                                                     "the property InstanceGameplayEffectClass"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
     }
-}
 
-void AAuraEffectActor::OnEndOverlap(UPrimitiveComponent* OverlappedComponent,
-                                    AActor* OtherActor,
-                                    UPrimitiveComponent* OtherComp,
-                                    int32 OtherBodyIndex)
-{
+    return Result;
 }
+#endif
 
 void AAuraEffectActor::BeginPlay()
 {
     Super::BeginPlay();
-    CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &AAuraEffectActor::OnBeginOverlap);
-    CollisionSphere->OnComponentEndOverlap.AddDynamic(this, &AAuraEffectActor::OnEndOverlap);
+}
+
+void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor,
+                                           const TSubclassOf<UGameplayEffect> GameplayEffectClass) const
+{
+    check(GameplayEffectClass);
+    if (const auto ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor))
+    {
+        auto Context = ASC->MakeEffectContext();
+        Context.AddSourceObject(this);
+
+        // ReSharper disable once CppTooWideScopeInitStatement
+        const auto Handle = ASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, Context);
+        if (Handle.IsValid())
+        {
+            ASC->ApplyGameplayEffectSpecToSelf(*Handle.Data);
+        }
+    }
 }

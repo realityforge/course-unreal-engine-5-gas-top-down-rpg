@@ -4,9 +4,9 @@
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
 
-class USphereComponent;
+class UGameplayEffect;
 
-UCLASS()
+UCLASS(Abstract)
 class AURA_API AAuraEffectActor : public AActor
 {
     GENERATED_BODY()
@@ -14,26 +14,16 @@ class AURA_API AAuraEffectActor : public AActor
 public:
     AAuraEffectActor();
 
-    UFUNCTION()
-    virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
-                                AActor* OtherActor,
-                                UPrimitiveComponent* OtherComp,
-                                int32 OtherBodyIndex,
-                                bool bFromSweep,
-                                const FHitResult& SweepResult);
-    UFUNCTION()
-    virtual void OnEndOverlap(UPrimitiveComponent* OverlappedComponent,
-                              AActor* OtherActor,
-                              UPrimitiveComponent* OtherComp,
-                              int32 OtherBodyIndex);
+#if WITH_EDITOR
+    virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
+#endif
 
 protected:
     virtual void BeginPlay() override;
 
-private:
-    UPROPERTY(VisibleAnywhere)
-    TObjectPtr<UStaticMeshComponent> Mesh{ nullptr };
+    UFUNCTION(BlueprintCallable)
+    void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass) const;
 
-    UPROPERTY(VisibleAnywhere)
-    TObjectPtr<USphereComponent> CollisionSphere{ nullptr };
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+    TSubclassOf<UGameplayEffect> InstanceGameplayEffectClass{ nullptr };
 };
