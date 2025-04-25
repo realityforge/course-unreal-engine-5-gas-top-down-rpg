@@ -15,10 +15,11 @@ EDataValidationResult AAuraEffectActor::IsDataValid(FDataValidationContext& Cont
 
     if (!GetClass()->HasAnyClassFlags(CLASS_Abstract))
     {
-        if (!IsValid(InstanceGameplayEffectClass))
+        if (!IsValid(InstanceGameplayEffectClass) && !IsValid(DurationGameplayEffectClass))
         {
             const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
-                                                     "the property InstanceGameplayEffectClass"),
+                                                     "either of the properties InstanceGameplayEffectClass or "
+                                                     "DurationGameplayEffectClass. At least one must be specified"),
                                                 *GetActorNameOrLabel());
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;

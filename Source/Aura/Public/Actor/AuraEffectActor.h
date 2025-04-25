@@ -26,4 +26,7 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
     TSubclassOf<UGameplayEffect> InstanceGameplayEffectClass{ nullptr };
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+    TSubclassOf<UGameplayEffect> DurationGameplayEffectClass{ nullptr };
 };
