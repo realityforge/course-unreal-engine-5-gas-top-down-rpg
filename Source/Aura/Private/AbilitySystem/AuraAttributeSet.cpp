@@ -35,6 +35,19 @@ void UAuraAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana)
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MaxMana, OldMaxMana);
 }
 
+void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+    Super::PreAttributeChange(Attribute, NewValue);
+    if (GetHealthAttribute() == Attribute)
+    {
+        NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
+    }
+    else if (GetManaAttribute() == Attribute)
+    {
+        NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());
+    }
+}
+
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
