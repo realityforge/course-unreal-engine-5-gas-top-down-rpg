@@ -47,41 +47,57 @@ protected:
     UFUNCTION(BlueprintCallable)
     void OnEndOverlap(AActor* TargetActor);
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowPrivateAccess = true))
     float ActorEffectLevel{ 1.f };
 
+    UPROPERTY(EditAnywhere,
+              BlueprintReadOnly,
+              Category = "Applied Effects",
+              meta = (AllowPrivateAccess = true, AllowAbstract = false))
     bool bDestroyOnEffectRemoval{ false };
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+    UPROPERTY(EditAnywhere,
+              BlueprintReadOnly,
+              Category = "Applied Effects",
+              meta = (AllowPrivateAccess = true, AllowAbstract = false))
     EEffectApplicationPolicy InstantEffectApplicationPolicy{ EEffectApplicationPolicy::DoNotApply };
 
     UPROPERTY(EditAnywhere,
               BlueprintReadOnly,
               Category = "Applied Effects",
-              meta = (AllowAbstract = false,
+              meta = (AllowPrivateAccess = true,
+                      AllowAbstract = false,
                       EditCondition = "EEffectApplicationPolicy::DoNotApply != InstantEffectApplicationPolicy",
                       EditConditionHides))
     TSubclassOf<UGameplayEffect> InstantGameplayEffectClass{ nullptr };
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+    UPROPERTY(EditAnywhere,
+              BlueprintReadOnly,
+              Category = "Applied Effects",
+              meta = (AllowPrivateAccess = true, AllowAbstract = false))
     EEffectApplicationPolicy DurationEffectApplicationPolicy{ EEffectApplicationPolicy::DoNotApply };
 
     UPROPERTY(EditAnywhere,
               BlueprintReadOnly,
               Category = "Applied Effects",
-              meta = (AllowAbstract = false,
+              meta = (AllowPrivateAccess = true,
+                      AllowAbstract = false,
                       EditCondition = "EEffectApplicationPolicy::DoNotApply != DurationEffectApplicationPolicy",
                       EditConditionHides))
     TSubclassOf<UGameplayEffect> DurationGameplayEffectClass{ nullptr };
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+    UPROPERTY(EditAnywhere,
+              BlueprintReadOnly,
+              Category = "Applied Effects",
+              meta = (AllowPrivateAccess = true, AllowAbstract = false))
     EEffectApplicationPolicy InfiniteEffectApplicationPolicy{ EEffectApplicationPolicy::DoNotApply };
 
     UPROPERTY(EditAnywhere,
               BlueprintReadOnly,
               Category = "Applied Effects",
-              meta = (AllowAbstract = false,
+              meta = (AllowPrivateAccess = true,
+                      AllowAbstract = false,
                       EditCondition = "EEffectApplicationPolicy::DoNotApply != InfiniteEffectApplicationPolicy",
                       EditConditionHides))
     TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass{ nullptr };
@@ -89,7 +105,8 @@ protected:
     UPROPERTY(EditAnywhere,
               BlueprintReadOnly,
               Category = "Applied Effects",
-              meta = (AllowAbstract = false,
+              meta = (AllowPrivateAccess = true,
+                      AllowAbstract = false,
                       EditCondition = "EEffectApplicationPolicy::DoNotApply != InfiniteEffectApplicationPolicy",
                       EditConditionHides))
     EEffectRemovalPolicy InfiniteEffectRemovalPolicy{ EEffectRemovalPolicy::RemoveOnEndOverlap };
