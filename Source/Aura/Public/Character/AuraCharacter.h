@@ -18,7 +18,8 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
     UPROPERTY(EditAnywhere)
     TObjectPtr<USpringArmComponent> SpringArmComponent{ nullptr };
 
-    void SetupAbilityActorInfo();
+protected:
+    virtual void SetupAbilityActorInfo() override;
 
 public:
     AAuraCharacter();

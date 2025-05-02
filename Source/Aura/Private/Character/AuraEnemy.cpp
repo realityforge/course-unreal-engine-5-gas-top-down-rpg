@@ -35,5 +35,14 @@ void AAuraEnemy::UnHighlightActor()
 void AAuraEnemy::BeginPlay()
 {
     Super::BeginPlay();
+    SetupAbilityActorInfo();
+}
+
+void AAuraEnemy::SetupAbilityActorInfo()
+{
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
+    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+    {
+        AuraAbilitySystemComponent->AbilityActorInfoSet();
+    }
 }

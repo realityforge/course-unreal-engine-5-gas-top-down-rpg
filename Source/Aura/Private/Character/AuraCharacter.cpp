@@ -1,4 +1,5 @@
 #include "Character/AuraCharacter.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -55,6 +56,10 @@ void AAuraCharacter::SetupAbilityActorInfo()
         {
             HUD->InitOverlay(PlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
         }
+    }
+    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+    {
+        AuraAbilitySystemComponent->AbilityActorInfoSet();
     }
 }
 
