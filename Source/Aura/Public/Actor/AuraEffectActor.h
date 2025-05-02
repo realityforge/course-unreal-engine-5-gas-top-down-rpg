@@ -48,6 +48,9 @@ protected:
     void OnEndOverlap(AActor* TargetActor);
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowPrivateAccess = true))
+    float ActorEffectLevel{ 1.f };
+
     bool bDestroyOnEffectRemoval{ false };
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects", meta = (AllowAbstract = false))

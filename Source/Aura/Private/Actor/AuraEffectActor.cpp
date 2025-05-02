@@ -79,7 +79,7 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, const TSubclassO
         Context.AddSourceObject(this);
 
         // ReSharper disable once CppTooWideScopeInitStatement
-        const auto Handle = ASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, Context);
+        const auto Handle = ASC->MakeOutgoingSpec(GameplayEffectClass, ActorEffectLevel, Context);
         if (Handle.IsValid())
         {
             const auto ActiveGameplayEffectHandle = ASC->ApplyGameplayEffectSpecToSelf(*Handle.Data);
