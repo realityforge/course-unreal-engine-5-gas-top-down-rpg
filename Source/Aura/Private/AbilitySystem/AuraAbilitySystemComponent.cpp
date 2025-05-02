@@ -6,9 +6,10 @@ void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
-void UAuraAbilitySystemComponent::OnEffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
-                                                  const FGameplayEffectSpec& GameplayEffectSpec,
-                                                  FActiveGameplayEffectHandle ActiveGameplayEffectHandle)
+void UAuraAbilitySystemComponent::OnEffectApplied(
+    [[maybe_unused]] UAbilitySystemComponent* AbilitySystemComponent,
+    const FGameplayEffectSpec& GameplayEffectSpec,
+    [[maybe_unused]] FActiveGameplayEffectHandle ActiveGameplayEffectHandle)
 {
     FGameplayTagContainer Tags;
     GameplayEffectSpec.GetAllAssetTags(Tags);
