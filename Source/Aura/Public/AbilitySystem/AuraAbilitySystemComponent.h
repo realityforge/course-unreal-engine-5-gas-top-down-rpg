@@ -4,6 +4,8 @@
 #include "CoreMinimal.h"
 #include "AuraAbilitySystemComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTagsSignature, const FGameplayTagContainer& /*AssetTags*/);
+
 UCLASS()
 class AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
@@ -27,6 +29,8 @@ public:
      * initialization routines.
      */
     void AbilityActorInfoSet();
+
+    FEffectAssetTagsSignature EffectAssetTags;
 
 protected:
     void OnEffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
