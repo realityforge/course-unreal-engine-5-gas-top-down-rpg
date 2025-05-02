@@ -27,4 +27,9 @@ public:
      * initialization routines.
      */
     void AbilityActorInfoSet();
+
+protected:
+    void OnEffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
+                         const FGameplayEffectSpec& GameplayEffectSpec,
+                         FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
 };
