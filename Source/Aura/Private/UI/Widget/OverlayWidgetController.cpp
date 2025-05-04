@@ -51,7 +51,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
     if (const auto ASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
     {
-        ASC->EffectAssetTags.AddLambda([](const FGameplayTagContainer& AssetTags) {
+        ASC->EffectAssetTags.AddLambda([](const auto& AssetTags) {
             for (const auto& Tag : AssetTags)
             {
                 GEngine->AddOnScreenDebugMessage(-1,

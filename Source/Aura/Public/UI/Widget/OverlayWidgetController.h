@@ -5,10 +5,33 @@
 #include "UI/Widget/AuraWidgetController.h"
 #include "OverlayWidgetController.generated.h"
 
+class UAuraUserWidget;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);
+
+USTRUCT(BlueprintType)
+struct FUIWidgetRow : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (Categories = "Message"))
+    FGameplayTag MessageTag{ FGameplayTag::EmptyTag };
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FText Message{};
+
+    /** A Widget we can create and add to viewport on receiving the MessageTag. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TSubclassOf<UAuraUserWidget> MessageWidget;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    TObjectPtr<UTexture2D> Image{ nullptr };
+};
 
 UCLASS(Abstract, BlueprintType, Blueprintable)
 class AURA_API UOverlayWidgetController : public UAuraWidgetController
@@ -32,6 +55,12 @@ public:
     FOnMaxManaChangedSignature OnMaxManaChanged;
 
 private:
+    UPROPERTY(EditDefaultsOnly,
+              BlueprintReadOnly,
+              Category = "Widget Data",
+              meta = (AllowPrivateAccess = true, RequiredAssetDataTags = "RowStructure=/Script/Aura.UIWidgetRow"))
+    TObjectPtr<UDataTable> MessageWidgetDataTable{ nullptr };
+
     void OnHealthChange(const FOnAttributeChangeData& OnAttributeChangeData) const;
     void OnMaxHealthChange(const FOnAttributeChangeData& OnAttributeChangeData) const;
     void OnManaChange(const FOnAttributeChangeData& OnAttributeChangeData) const;
