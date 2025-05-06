@@ -51,13 +51,16 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
     if (const auto ASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
     {
-        ASC->EffectAssetTags.AddLambda([](const auto& AssetTags) {
+        ASC->EffectAssetTags.AddLambda([this](const auto& AssetTags) {
+            const auto Tag_Message = FGameplayTag::RequestGameplayTag(FName("Message"));
             for (const auto& Tag : AssetTags)
             {
-                GEngine->AddOnScreenDebugMessage(-1,
-                                                 8.f,
-                                                 FColor::Blue,
-                                                 FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString()));
+                // ReSharper disable once CppTooWideScopeInitStatement
+                if (Tag.MatchesTag(Tag_Message))
+                {
+                    const auto Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+                    MessageWidgetRow.Broadcast(*Row);
+                }
             }
         });
     }
