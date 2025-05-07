@@ -2,26 +2,6 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 
-void UOverlayWidgetController::OnHealthChange(const FOnAttributeChangeData& OnAttributeChangeData) const
-{
-    OnHealthChanged.Broadcast(OnAttributeChangeData.NewValue);
-}
-
-void UOverlayWidgetController::OnMaxHealthChange(const FOnAttributeChangeData& OnAttributeChangeData) const
-{
-    OnMaxHealthChanged.Broadcast(OnAttributeChangeData.NewValue);
-}
-
-void UOverlayWidgetController::OnManaChange(const FOnAttributeChangeData& OnAttributeChangeData) const
-{
-    OnManaChanged.Broadcast(OnAttributeChangeData.NewValue);
-}
-
-void UOverlayWidgetController::OnMaxManaChange(const FOnAttributeChangeData& OnAttributeChangeData) const
-{
-    OnMaxManaChanged.Broadcast(OnAttributeChangeData.NewValue);
-}
-
 UAuraAttributeSet* UOverlayWidgetController::GetAuraAttributeSet() const
 {
     check(AttributeSet.Get());
@@ -41,13 +21,13 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 {
     const auto AuraAttributeSet = GetAuraAttributeSet();
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetHealthAttribute())
-        .AddUObject(this, &UOverlayWidgetController::OnHealthChange);
+        .AddLambda([this](const auto& Data) { OnHealthChanged.Broadcast(Data.NewValue); });
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute())
-        .AddUObject(this, &UOverlayWidgetController::OnMaxHealthChange);
+        .AddLambda([this](const auto& Data) { OnMaxHealthChanged.Broadcast(Data.NewValue); });
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetManaAttribute())
-        .AddUObject(this, &UOverlayWidgetController::OnManaChange);
+        .AddLambda([this](const auto& Data) { OnManaChanged.Broadcast(Data.NewValue); });
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute())
-        .AddUObject(this, &UOverlayWidgetController::OnMaxManaChange);
+        .AddLambda([this](const auto& Data) { OnMaxManaChanged.Broadcast(Data.NewValue); });
 
     if (const auto ASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
     {
