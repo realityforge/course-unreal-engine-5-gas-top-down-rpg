@@ -69,6 +69,22 @@ public:
     FGameplayAttributeData MaxMana;
     ATTRIBUTE_ACCESSORS(ThisClass, MaxMana);
 
+    UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Strength)
+    FGameplayAttributeData Strength;
+    ATTRIBUTE_ACCESSORS(ThisClass, Strength);
+
+    UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Intelligence)
+    FGameplayAttributeData Intelligence;
+    ATTRIBUTE_ACCESSORS(ThisClass, Intelligence);
+
+    UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Resilience)
+    FGameplayAttributeData Resilience;
+    ATTRIBUTE_ACCESSORS(ThisClass, Resilience);
+
+    UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Vigor)
+    FGameplayAttributeData Vigor;
+    ATTRIBUTE_ACCESSORS(ThisClass, Vigor);
+
     UFUNCTION()
     void OnRep_Health(const FGameplayAttributeData& OldHealth);
 
@@ -80,6 +96,18 @@ public:
 
     UFUNCTION()
     void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana);
+
+    UFUNCTION()
+    void OnRep_Strength(const FGameplayAttributeData& OldStrength);
+
+    UFUNCTION()
+    void OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence);
+
+    UFUNCTION()
+    void OnRep_Resilience(const FGameplayAttributeData& OldResilience);
+
+    UFUNCTION()
+    void OnRep_Vigor(const FGameplayAttributeData& OldVigor);
 
     virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 

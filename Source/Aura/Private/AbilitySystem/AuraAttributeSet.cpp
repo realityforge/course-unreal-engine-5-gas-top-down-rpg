@@ -38,6 +38,30 @@ void UAuraAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana)
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MaxMana, OldMaxMana);
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UAuraAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength)
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, Strength, OldStrength);
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UAuraAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence)
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, Intelligence, OldIntelligence);
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UAuraAttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience)
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, Resilience, OldResilience);
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UAuraAttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor)
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, Vigor, OldVigor);
+}
+
 void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
     Super::PreAttributeChange(Attribute, NewValue);
@@ -75,6 +99,10 @@ void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
     DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, MaxHealth, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, Mana, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, MaxMana, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, Strength, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, Intelligence, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, Resilience, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, Vigor, COND_None, REPNOTIFY_Always);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
