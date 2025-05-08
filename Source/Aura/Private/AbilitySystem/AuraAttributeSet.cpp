@@ -56,6 +56,15 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
     Super::PostGameplayEffectExecute(Data);
     FEffectProperties Props;
     GetEffectProperties(Data, Props);
+
+    if (GetHealthAttribute() == Data.EvaluatedData.Attribute)
+    {
+        SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+    }
+    else if (GetManaAttribute() == Data.EvaluatedData.Attribute)
+    {
+        SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+    }
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
