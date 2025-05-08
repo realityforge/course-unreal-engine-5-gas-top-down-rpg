@@ -57,6 +57,10 @@ void AAuraCharacter::SetupAbilityActorInfo()
             HUD->InitOverlay(PlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
         }
     }
+    if (IsLocallyControlled())
+    {
+        InitializePrimaryAttributes();
+    }
     if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
     {
         AuraAbilitySystemComponent->AbilityActorInfoSet();

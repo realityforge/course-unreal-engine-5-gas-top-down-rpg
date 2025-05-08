@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
@@ -29,6 +30,8 @@ protected:
 
     virtual void SetupAbilityActorInfo();
 
+    void InitializePrimaryAttributes() const;
+
     /** Mesh representing the weapon the character is carrying. */
     UPROPERTY(VisibleAnywhere, Category = "Combat")
     TObjectPtr<USkeletalMeshComponent> Weapon{ nullptr };
@@ -38,6 +41,9 @@ protected:
 
     UPROPERTY()
     TObjectPtr<UAttributeSet> AttributeSet{ nullptr };
+
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes{ nullptr };
 
 public:
     FORCEINLINE UAbilitySystemComponent* GetAbilitySystemComponentFast() const { return AbilitySystemComponent; }

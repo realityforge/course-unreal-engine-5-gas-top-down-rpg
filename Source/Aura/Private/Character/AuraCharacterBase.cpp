@@ -1,4 +1,6 @@
 #include "Character/AuraCharacterBase.h"
+#include "AbilitySystemComponent.h"
+#include "GameplayEffectTypes.h"
 #include "Misc/DataValidation.h"
 
 static FName NAME_WeaponHandSocket("WeaponHandSocket");
@@ -56,3 +58,14 @@ void AAuraCharacterBase::BeginPlay()
 }
 
 void AAuraCharacterBase::SetupAbilityActorInfo() {}
+
+void AAuraCharacterBase::InitializePrimaryAttributes() const
+{
+    check(IsValid(AbilitySystemComponent));
+    if (IsValid(DefaultPrimaryAttributes))
+    {
+        const auto ContextHandle = AbilitySystemComponent->MakeEffectContext();
+        const auto SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.f, ContextHandle);
+        AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), AbilitySystemComponent);
+    }
+}
