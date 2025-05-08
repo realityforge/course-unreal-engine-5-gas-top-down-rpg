@@ -19,7 +19,7 @@ public:
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
-    UPROPERTY()
+    UPROPERTY(VisibleAnywhere)
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent{ nullptr };
 
     UPROPERTY()
