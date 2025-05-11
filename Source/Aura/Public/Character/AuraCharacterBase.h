@@ -25,12 +25,15 @@ public:
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
 
+private:
+    void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const;
+
 protected:
     virtual void BeginPlay() override;
 
     virtual void SetupAbilityActorInfo();
 
-    void InitializePrimaryAttributes() const;
+    void InitializeDefaultAttributes() const;
 
     /** Mesh representing the weapon the character is carrying. */
     UPROPERTY(VisibleAnywhere, Category = "Combat")

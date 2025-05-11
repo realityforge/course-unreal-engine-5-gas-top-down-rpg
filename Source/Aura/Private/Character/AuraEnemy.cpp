@@ -41,7 +41,7 @@ void AAuraEnemy::BeginPlay()
 void AAuraEnemy::SetupAbilityActorInfo()
 {
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
-    InitializePrimaryAttributes();
+    InitializeDefaultAttributes();
     if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
     {
         AuraAbilitySystemComponent->AbilityActorInfoSet();

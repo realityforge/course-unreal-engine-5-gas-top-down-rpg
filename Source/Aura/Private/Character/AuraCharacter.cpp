@@ -59,7 +59,7 @@ void AAuraCharacter::SetupAbilityActorInfo()
     }
     if (IsLocallyControlled())
     {
-        InitializePrimaryAttributes();
+        InitializeDefaultAttributes();
     }
     if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
     {
