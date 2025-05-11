@@ -76,4 +76,5 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
 {
     check(IsValid(AbilitySystemComponent));
     ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
+    ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 }
