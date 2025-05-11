@@ -155,7 +155,7 @@ public:
 
     /**
      * Attribute that indicates the maximum amount of Mana obtainable.
-     * Depends on Intelligence.
+     * Depends on MaxMana.
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_MaxMana)
     FGameplayAttributeData MaxMana;
