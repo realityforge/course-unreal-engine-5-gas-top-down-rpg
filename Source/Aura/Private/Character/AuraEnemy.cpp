@@ -32,6 +32,11 @@ void AAuraEnemy::UnHighlightActor()
     GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_CLEAR);
 }
 
+int32 AAuraEnemy::GetPlayerLevel()
+{
+    return Level;
+}
+
 void AAuraEnemy::BeginPlay()
 {
     Super::BeginPlay();

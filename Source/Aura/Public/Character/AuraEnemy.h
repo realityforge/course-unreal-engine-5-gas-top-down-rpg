@@ -18,8 +18,20 @@ public:
     virtual void UnHighlightActor() override;
 #pragma endregion
 
+#pragma region ICombatInterface
+    virtual int32 GetPlayerLevel() override;
+#pragma endregion
+
 protected:
     virtual void BeginPlay() override;
 
     virtual void SetupAbilityActorInfo() override;
+
+private:
+    /** Move this value outside of attributes ... for no reason other than so we can experiment with MMC  */
+    UPROPERTY(EditAnywhere,
+              BlueprintReadOnly,
+              Category = "Character Class Defaults",
+              meta = (AllowPrivateAccess = true))
+    int32 Level{ 1 };
 };
