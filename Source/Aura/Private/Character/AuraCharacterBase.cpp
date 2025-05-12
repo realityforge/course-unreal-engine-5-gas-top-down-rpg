@@ -66,7 +66,9 @@ void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& G
 
     if (IsValid(GameplayEffectClass))
     {
-        const auto ContextHandle = AbilitySystemComponent->MakeEffectContext();
+        auto ContextHandle = AbilitySystemComponent->MakeEffectContext();
+        // Configure SourceObject (We use it in MMC_MaxHealth and MMC_MaxMana)
+        ContextHandle.AddSourceObject(this);
         const auto SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
         AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), AbilitySystemComponent);
     }
