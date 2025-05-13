@@ -79,4 +79,7 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
     check(IsValid(AbilitySystemComponent));
     ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
     ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
+    // Initial Vital Attributes are based off Secondary attributes (i.e. Health is based off MaxHealth)
+    // Thus we need to apply this effect last
+    ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }

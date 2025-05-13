@@ -52,6 +52,9 @@ protected:
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
     TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes{ nullptr };
 
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultVitalAttributes{ nullptr };
+
 public:
     FORCEINLINE UAbilitySystemComponent* GetAbilitySystemComponentFast() const { return AbilitySystemComponent; }
     FORCEINLINE UAttributeSet* GetAttributeSet() const { return AttributeSet; }

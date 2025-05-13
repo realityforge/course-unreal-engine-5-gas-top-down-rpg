@@ -5,11 +5,7 @@
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
-UAuraAttributeSet::UAuraAttributeSet()
-{
-    InitHealth(10.f);
-    InitMana(50.f);
-}
+UAuraAttributeSet::UAuraAttributeSet() {}
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
