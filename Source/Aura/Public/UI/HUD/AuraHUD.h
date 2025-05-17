@@ -32,11 +32,11 @@ public:
 
 private:
     UPROPERTY(EditAnywhere)
-    TSubclassOf<UAuraUserWidget> OverlayWidgetClass;
+    TSubclassOf<UAuraUserWidget> OverlayWidgetClass{ nullptr };
 
     UPROPERTY(EditAnywhere)
-    TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+    TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass{ nullptr };
 
     UPROPERTY()
-    TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+    TObjectPtr<UOverlayWidgetController> OverlayWidgetController{ nullptr };
 };
