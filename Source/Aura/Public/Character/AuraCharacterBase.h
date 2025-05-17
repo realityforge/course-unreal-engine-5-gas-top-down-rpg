@@ -10,6 +10,8 @@ class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
+// TODO: Should refactor AAeonCharacterBase and use that as a base. It ma mean refactorin code still in Shokada...
+
 UCLASS(Abstract)
 class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
