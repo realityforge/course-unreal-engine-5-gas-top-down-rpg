@@ -16,9 +16,6 @@ class AURA_API AAuraHUD : public AHUD
     GENERATED_BODY()
 
 public:
-    UPROPERTY()
-    TObjectPtr<UAuraUserWidget> OverlayWidget;
-
     UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WidgetControllerParams);
 
     void InitOverlay(APlayerController* PlayerController,
@@ -38,6 +35,9 @@ private:
 
     UPROPERTY(EditAnywhere)
     TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass{ nullptr };
+
+    UPROPERTY()
+    TObjectPtr<UAuraUserWidget> OverlayWidget{ nullptr };
 
     UPROPERTY()
     TObjectPtr<UOverlayWidgetController> OverlayWidgetController{ nullptr };
