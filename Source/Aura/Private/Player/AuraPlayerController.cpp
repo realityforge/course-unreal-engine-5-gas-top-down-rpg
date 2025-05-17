@@ -4,6 +4,7 @@
 #include "InputMappingContext.h"
 #include "Interaction/EnemyInterface.h"
 #include "Misc/DataValidation.h"
+#include "Player/AuraPlayerState.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
@@ -42,6 +43,15 @@ EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext&
     }
 
     return Result;
+}
+
+FWidgetControllerParams AAuraPlayerController::CreateWidgetControllerParams()
+{
+    const auto AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+    check(AuraPlayerState);
+    const auto AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
+    const auto AttributeSet = AuraPlayerState->GetAttributeSet();
+    return FWidgetControllerParams(this, AuraPlayerState, AbilitySystemComponent, AttributeSet);
 }
 
 void AAuraPlayerController::SetupInputComponent()

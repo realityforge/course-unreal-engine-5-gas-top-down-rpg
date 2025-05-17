@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "Interaction/EnemyInterface.h"
+#include "UI/Widget/AuraWidgetController.h"
 #include "AuraPlayerController.generated.h"
 
 struct FInputActionValue;
@@ -25,6 +26,8 @@ public:
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
+
+    FWidgetControllerParams CreateWidgetControllerParams();
 
 protected:
     virtual void SetupInputComponent() override;
