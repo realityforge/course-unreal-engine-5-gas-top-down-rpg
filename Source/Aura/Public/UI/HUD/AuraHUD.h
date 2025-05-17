@@ -31,6 +31,8 @@ public:
 #endif
 
 private:
+#pragma region OverlayWidget
+
     UPROPERTY(EditAnywhere)
     TSubclassOf<UAuraUserWidget> OverlayWidgetClass{ nullptr };
 
@@ -39,4 +41,6 @@ private:
 
     UPROPERTY()
     TObjectPtr<UOverlayWidgetController> OverlayWidgetController{ nullptr };
+
+#pragma endregion
 };
