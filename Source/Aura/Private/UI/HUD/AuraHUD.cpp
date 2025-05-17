@@ -45,17 +45,17 @@ EDataValidationResult AAuraHUD::IsDataValid(FDataValidationContext& Context) con
     {
         if (!IsValid(OverlayWidgetClass))
         {
-            const auto String =
-                FString::Printf(TEXT("Object %s is not abstract but has not specified the property OverlayWidgetClass"),
-                                *GetActorNameOrLabel());
+            const auto String = FString::Printf(TEXT("Object %s is not abstract but has not specified "
+                                                     "the property OverlayWidgetClass"),
+                                                *GetActorNameOrLabel());
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
         }
         if (!IsValid(OverlayWidgetControllerClass))
         {
-            const auto String = FString::Printf(
-                TEXT("Object %s is not abstract but has not specified the property OverlayWidgetControllerClass"),
-                *GetActorNameOrLabel());
+            const auto String = FString::Printf(TEXT("Object %s is not abstract but has not specified "
+                                                     "the property OverlayWidgetControllerClass"),
+                                                *GetActorNameOrLabel());
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
         }
