@@ -4,6 +4,7 @@
 #include "GameFramework/HUD.h"
 #include "AuraHUD.generated.h"
 
+class UAttributeMenuWidgetController;
 class UAbilitySystemComponent;
 class UAttributeSet;
 struct FWidgetControllerParams;
@@ -18,6 +19,8 @@ class AURA_API AAuraHUD : public AHUD
 public:
     UAuraUserWidget* CreateOverlayWidget();
 
+    UFUNCTION(BlueprintCallable)
+    UAuraUserWidget* CreateAttributeMenuWidget();
 
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
@@ -37,6 +40,16 @@ private:
 
     UPROPERTY()
     TObjectPtr<UOverlayWidgetController> OverlayWidgetController{ nullptr };
+
+#pragma endregion
+
+#pragma region AttributeMenuWidget
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UAuraUserWidget> AttributeMenuWidgetClass{ nullptr };
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass{ nullptr };
 
 #pragma endregion
 };

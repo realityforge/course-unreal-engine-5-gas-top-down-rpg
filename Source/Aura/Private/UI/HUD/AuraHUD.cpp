@@ -2,6 +2,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Misc/DataValidation.h"
 #include "Player/AuraPlayerController.h"
+#include "UI/Widget/AttributeMenuWidgetController.h"
 #include "UI/Widget/AuraUserWidget.h"
 #include "UI/Widget/OverlayWidgetController.h"
 
@@ -18,6 +19,26 @@ UAuraUserWidget* AAuraHUD::CreateOverlayWidget()
     OverlayWidget = CreateWidget<UAuraUserWidget>(GetWorld(), OverlayWidgetClass);
     OverlayWidget->SetWidgetController(OverlayWidgetController);
     return OverlayWidget;
+}
+
+UAuraUserWidget* AAuraHUD::CreateAttributeMenuWidget()
+{
+    checkf(AttributeMenuWidgetClass, TEXT("AAuraHUD has not specified the property AttributeMenuWidgetClass"));
+    checkf(AttributeMenuWidgetControllerClass,
+           TEXT("AAuraHUD has not specified the property AttributeMenuWidgetControllerClass"));
+
+    const auto PlayerController = CastChecked<AAuraPlayerController>(PlayerOwner);
+
+    // The alternative to making the HUD the factory is to make the widget instantiate controller in Construct event
+
+    const auto WidgetControllerParams = PlayerController->CreateWidgetControllerParams();
+
+    const auto WidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+    WidgetController->SetWidgetControllerParams(WidgetControllerParams);
+
+    const auto Widget = NewObject<UAuraUserWidget>(this, AttributeMenuWidgetClass);
+    Widget->SetWidgetController(WidgetController);
+    return Widget;
 }
 
 EDataValidationResult AAuraHUD::IsDataValid(FDataValidationContext& Context) const
@@ -38,6 +59,22 @@ EDataValidationResult AAuraHUD::IsDataValid(FDataValidationContext& Context) con
         {
             const auto String = FString::Printf(TEXT("Object %s is not abstract but has not specified "
                                                      "the property OverlayWidgetControllerClass"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
+        if (!IsValid(AttributeMenuWidgetClass))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not abstract but has not specified "
+                                                     "the property AttributeMenuWidgetClass"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
+        if (!IsValid(AttributeMenuWidgetControllerClass))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not abstract but has not specified "
+                                                     "the property AttributeMenuWidgetControllerClass"),
                                                 *GetActorNameOrLabel());
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
