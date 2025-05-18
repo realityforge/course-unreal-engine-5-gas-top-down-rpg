@@ -1,31 +1,23 @@
 #include "UI/HUD/AuraHUD.h"
 #include "Blueprint/UserWidget.h"
 #include "Misc/DataValidation.h"
+#include "Player/AuraPlayerController.h"
 #include "UI/Widget/AuraUserWidget.h"
 #include "UI/Widget/OverlayWidgetController.h"
 
-UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& WidgetControllerParams)
-{
-    if (IsValid(OverlayWidgetController))
-    {
-        return OverlayWidgetController;
-    }
-    else
-    {
-        OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
-        OverlayWidgetController->SetWidgetControllerParams(WidgetControllerParams);
-        return OverlayWidgetController;
-    }
-}
-
-void AAuraHUD::CreateOverlayWidgetOverlay(const FWidgetControllerParams& WidgetControllerParams)
+UAuraUserWidget* AAuraHUD::CreateOverlayWidget()
 {
     checkf(OverlayWidgetClass, TEXT("AAuraHUD has not specified the property OverlayWidgetClass"));
     checkf(OverlayWidgetControllerClass, TEXT("AAuraHUD has not specified the property OverlayWidgetControllerClass"));
-    OverlayWidget = CreateWidget<UAuraUserWidget>(GetWorld(), OverlayWidgetClass);
+    const auto PlayerController = CastChecked<AAuraPlayerController>(PlayerOwner);
 
-    OverlayWidget->SetWidgetController(GetOverlayWidgetController(WidgetControllerParams));
-    OverlayWidget->AddToViewport();
+    const auto WidgetControllerParams = PlayerController->CreateWidgetControllerParams();
+    OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
+    OverlayWidgetController->SetWidgetControllerParams(WidgetControllerParams);
+
+    OverlayWidget = CreateWidget<UAuraUserWidget>(GetWorld(), OverlayWidgetClass);
+    OverlayWidget->SetWidgetController(OverlayWidgetController);
+    return OverlayWidget;
 }
 
 EDataValidationResult AAuraHUD::IsDataValid(FDataValidationContext& Context) const

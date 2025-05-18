@@ -16,9 +16,8 @@ class AURA_API AAuraHUD : public AHUD
     GENERATED_BODY()
 
 public:
-    UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WidgetControllerParams);
+    UAuraUserWidget* CreateOverlayWidget();
 
-    void CreateOverlayWidgetOverlay(const FWidgetControllerParams& WidgetControllerParams);
 
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;

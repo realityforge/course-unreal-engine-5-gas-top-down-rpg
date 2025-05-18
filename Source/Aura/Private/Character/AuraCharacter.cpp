@@ -7,6 +7,7 @@
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
+#include "UI/Widget/AuraUserWidget.h"
 
 AAuraCharacter::AAuraCharacter()
 {
@@ -55,7 +56,7 @@ void AAuraCharacter::SetupAbilityActorInfo()
     {
         if (const auto HUD = Cast<AAuraHUD>(PlayerController->GetHUD()))
         {
-            HUD->CreateOverlayWidgetOverlay(PlayerController->CreateWidgetControllerParams());
+            HUD->CreateOverlayWidget()->AddToViewport();
         }
     }
     if (IsLocallyControlled())
