@@ -15,7 +15,7 @@
       "url": "https://github.com/realityforge/LyraPlugins.git",
       "branch": "main",
       "path": "Plugins/ModularGameplayActors",
-      "revision": "f64dbb21f4fb86ee1bf6ff68a4917790b8c58238"
+      "revision": "2296d82f088d5729b3354f866b71c57b672ab872"
     },
     "Plugins/ModularGasGameplayActors": {
       "url": "https://github.com/realityforge/ModularGasGameplayActors.git",
