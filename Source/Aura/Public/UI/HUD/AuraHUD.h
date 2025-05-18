@@ -18,10 +18,7 @@ class AURA_API AAuraHUD : public AHUD
 public:
     UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WidgetControllerParams);
 
-    void InitOverlay(APlayerController* PlayerController,
-                     APlayerState* PlayerState,
-                     UAbilitySystemComponent* AbilitySystemComponent,
-                     UAttributeSet* AttributeSet);
+    void CreateOverlayWidgetOverlay(const FWidgetControllerParams& WidgetControllerParams);
 
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
