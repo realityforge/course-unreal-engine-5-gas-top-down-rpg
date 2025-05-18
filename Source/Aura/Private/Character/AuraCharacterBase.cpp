@@ -52,11 +52,6 @@ EDataValidationResult AAuraCharacterBase::IsDataValid(FDataValidationContext& Co
 }
 #endif
 
-void AAuraCharacterBase::BeginPlay()
-{
-    Super::BeginPlay();
-}
-
 void AAuraCharacterBase::SetupAbilityActorInfo() {}
 
 void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass,

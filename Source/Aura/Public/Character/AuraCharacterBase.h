@@ -32,8 +32,6 @@ private:
     void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const;
 
 protected:
-    virtual void BeginPlay() override;
-
     virtual void SetupAbilityActorInfo();
 
     void InitializeDefaultAttributes() const;
