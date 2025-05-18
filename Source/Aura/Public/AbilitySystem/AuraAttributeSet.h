@@ -1,15 +1,10 @@
 #pragma once
 
 #include "AbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAttributeSetHelper.h"
 #include "AttributeSet.h"
 #include "CoreMinimal.h"
 #include "AuraAttributeSet.generated.h"
-
-#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName)           \
-    GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
-    GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName)               \
-    GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName)               \
-    GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 USTRUCT()
 struct FEffectProperties
@@ -55,31 +50,31 @@ public:
 
     UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", ReplicatedUsing = OnRep_Health)
     FGameplayAttributeData Health;
-    ATTRIBUTE_ACCESSORS(ThisClass, Health);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Health);
 
     UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", ReplicatedUsing = OnRep_Mana)
     FGameplayAttributeData Mana;
-    ATTRIBUTE_ACCESSORS(ThisClass, Mana);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Mana);
 
     /** Attribute that increases Physical Damage. */
     UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Strength)
     FGameplayAttributeData Strength;
-    ATTRIBUTE_ACCESSORS(ThisClass, Strength);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Strength);
 
     /** Attribute that increases Magical Damage. */
     UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Intelligence)
     FGameplayAttributeData Intelligence;
-    ATTRIBUTE_ACCESSORS(ThisClass, Intelligence);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Intelligence);
 
     /** Attribute that increases Armor and Armor Penetration. */
     UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Resilience)
     FGameplayAttributeData Resilience;
-    ATTRIBUTE_ACCESSORS(ThisClass, Resilience);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Resilience);
 
     /** Attribute that increases Health. */
     UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes", ReplicatedUsing = OnRep_Vigor)
     FGameplayAttributeData Vigor;
-    ATTRIBUTE_ACCESSORS(ThisClass, Vigor);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Vigor);
 
     /**
      * Attribute that reduces damage taken and improves block chance.
@@ -87,7 +82,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_Armor)
     FGameplayAttributeData Armor;
-    ATTRIBUTE_ACCESSORS(ThisClass, Armor);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, Armor);
 
     /**
      * Attribute that ignores a percentage of enemy Armor and increases Critical Hit chance.
@@ -95,7 +90,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_ArmorPenetration)
     FGameplayAttributeData ArmorPenetration;
-    ATTRIBUTE_ACCESSORS(ThisClass, ArmorPenetration);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, ArmorPenetration);
 
     /**
      * Attribute that indicates the chance to "block" and cut incoming damage in half.
@@ -103,7 +98,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_BlockChance)
     FGameplayAttributeData BlockChance;
-    ATTRIBUTE_ACCESSORS(ThisClass, BlockChance);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, BlockChance);
 
     /**
      * Attribute that indicates the chance to "critical hit" and double damagae plus add a critical hit bonus.
@@ -111,7 +106,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_CriticalHitChance)
     FGameplayAttributeData CriticalHitChance;
-    ATTRIBUTE_ACCESSORS(ThisClass, CriticalHitChance);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, CriticalHitChance);
 
     /**
      * Attribute that indicates the damage added when a critical hit is scored.
@@ -119,7 +114,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_CriticalHitDamage)
     FGameplayAttributeData CriticalHitDamage;
-    ATTRIBUTE_ACCESSORS(ThisClass, CriticalHitDamage);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, CriticalHitDamage);
 
     /**
      * Attribute that reduces the critical hit chance of attacking enemies.
@@ -127,7 +122,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_CriticalHitResistance)
     FGameplayAttributeData CriticalHitResistance;
-    ATTRIBUTE_ACCESSORS(ThisClass, CriticalHitResistance);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, CriticalHitResistance);
 
     /**
      * Attribute that indicates the amount of health regenerated every 1 second.
@@ -135,7 +130,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_HealthRegeneration)
     FGameplayAttributeData HealthRegeneration;
-    ATTRIBUTE_ACCESSORS(ThisClass, HealthRegeneration);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, HealthRegeneration);
 
     /**
      * Attribute that indicates the amount of mana regenerated every 1 second.
@@ -143,7 +138,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_ManaRegeneration)
     FGameplayAttributeData ManaRegeneration;
-    ATTRIBUTE_ACCESSORS(ThisClass, ManaRegeneration);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, ManaRegeneration);
 
     /**
      * Attribute that indicates the maximum amount of Health obtainable.
@@ -151,7 +146,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_MaxHealth)
     FGameplayAttributeData MaxHealth;
-    ATTRIBUTE_ACCESSORS(ThisClass, MaxHealth);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, MaxHealth);
 
     /**
      * Attribute that indicates the maximum amount of Mana obtainable.
@@ -159,7 +154,7 @@ public:
      */
     UPROPERTY(BlueprintReadOnly, Category = "Secondary Attributes", ReplicatedUsing = OnRep_MaxMana)
     FGameplayAttributeData MaxMana;
-    ATTRIBUTE_ACCESSORS(ThisClass, MaxMana);
+    AEON_ATTRIBUTE_ACCESSORS(ThisClass, MaxMana);
 
     UFUNCTION()
     void OnRep_Health(const FGameplayAttributeData& OldHealth);
