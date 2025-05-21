@@ -51,4 +51,14 @@ namespace AuraGameplayTags
     UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_MaxMana,
                                    "Attributes.Secondary.MaxMana",
                                    "Maximum amount of Mana obtainable")
+
+    // --------------------------------------------------- //
+    // Message Tags
+    // --------------------------------------------------- //
+
+    UE_DEFINE_GAMEPLAY_TAG(Message_HealthCrystal, "Message.HealthCrystal")
+    UE_DEFINE_GAMEPLAY_TAG(Message_HealthPotion, "Message.HealthPotion")
+    UE_DEFINE_GAMEPLAY_TAG(Message_ManaCrystal, "Message.ManaCrystal")
+    UE_DEFINE_GAMEPLAY_TAG(Message_ManaPotion, "Message.ManaPotion")
+
 } // namespace AuraGameplayTags
