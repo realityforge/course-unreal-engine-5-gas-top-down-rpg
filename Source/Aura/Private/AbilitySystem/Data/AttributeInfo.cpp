@@ -2,6 +2,11 @@
 #include "Logging/StructuredLog.h"
 #include "Misc/DataValidation.h"
 
+bool FAuraAttributeDef::IsValid() const
+{
+    return Tag.IsValid() && !Name.IsEmpty();
+}
+
 FAuraAttributeDef UAttributeInfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag,
                                                           const bool bLogNotFound) const
 {

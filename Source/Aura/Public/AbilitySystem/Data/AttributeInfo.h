@@ -18,6 +18,8 @@ struct FAuraAttributeDef
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     FText Description{};
+
+    bool IsValid() const;
 };
 
 USTRUCT(BlueprintType)
