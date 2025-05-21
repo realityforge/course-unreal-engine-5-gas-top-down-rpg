@@ -1,42 +1,32 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayTagContainer.h"
+#include "NativeGameplayTags.h"
 
-// TODO: This is not my preferred approach but duplicating it because it is what the tutorial uses.
-//       My preferred approach would be ..
-// namespace AuraGameplayTags
-//{
-//    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_Armor)
-//    ...
-//}
-
-/**
- * AuraGameplayTags
- *
- * Singleton containing native Gameplay Tags
- */
-struct FAuraGameplayTags
+namespace AuraGameplayTags
 {
-    static const FAuraGameplayTags& Get() { return GameplayTags; }
-    static void InitializeNativeGameplayTags();
+    // --------------------------------------------------- //
+    // Primary Attribute Tags
+    // --------------------------------------------------- //
 
-    FGameplayTag Attributes_Primary_Strength;
-    FGameplayTag Attributes_Primary_Intelligence;
-    FGameplayTag Attributes_Primary_Resilience;
-    FGameplayTag Attributes_Primary_Vigor;
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Strength)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Intelligence)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Resilience)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Primary_Vigor)
 
-    FGameplayTag Attributes_Secondary_Armor;
-    FGameplayTag Attributes_Secondary_ArmorPenetration;
-    FGameplayTag Attributes_Secondary_BlockChance;
-    FGameplayTag Attributes_Secondary_CriticalHitChance;
-    FGameplayTag Attributes_Secondary_CriticalHitDamage;
-    FGameplayTag Attributes_Secondary_CriticalHitResistance;
-    FGameplayTag Attributes_Secondary_HealthRegeneration;
-    FGameplayTag Attributes_Secondary_ManaRegeneration;
-    FGameplayTag Attributes_Secondary_MaxHealth;
-    FGameplayTag Attributes_Secondary_MaxMana;
+    // --------------------------------------------------- //
+    // Secondary Attribute Tags
+    // --------------------------------------------------- //
 
-private:
-    static FAuraGameplayTags GameplayTags;
-};
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_Armor)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ArmorPenetration)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_BlockChance)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitChance)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitDamage)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_CriticalHitResistance)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_HealthRegeneration)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_ManaRegeneration)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxHealth)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Attributes_Secondary_MaxMana)
+
+} // namespace AuraGameplayTags

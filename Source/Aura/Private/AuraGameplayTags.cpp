@@ -1,49 +1,54 @@
 ﻿#include "AuraGameplayTags.h"
-#include "GameplayTagsManager.h"
 
-FAuraGameplayTags FAuraGameplayTags::GameplayTags;
-
-void FAuraGameplayTags::InitializeNativeGameplayTags()
+namespace AuraGameplayTags
 {
-    auto& Manager = UGameplayTagsManager::Get();
+    // --------------------------------------------------- //
+    // Primary Attribute Tags
+    // --------------------------------------------------- //
 
-    GameplayTags.Attributes_Primary_Strength =
-        Manager.AddNativeGameplayTag(FName("Attributes.Primary.Strength"), TEXT("Increases physical damage"));
-    GameplayTags.Attributes_Primary_Intelligence =
-        Manager.AddNativeGameplayTag(FName("Attributes.Primary.Intelligence"), TEXT("Increases magical damage"));
-    GameplayTags.Attributes_Primary_Resilience =
-        Manager.AddNativeGameplayTag(FName("Attributes.Primary.Resilience"),
-                                     TEXT("Increases Armor and Armor Penetration"));
-    GameplayTags.Attributes_Primary_Vigor =
-        Manager.AddNativeGameplayTag(FName("Attributes.Primary.Vigor"), TEXT("Increases Health"));
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Primary_Strength,
+                                   "Attributes.Primary.Strength",
+                                   "Increases physical damage")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Primary_Intelligence,
+                                   "Attributes.Primary.Intelligence",
+                                   "Increases magical damage")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Primary_Resilience,
+                                   "Attributes.Primary.Resilience",
+                                   "Increases Armor and Armor Penetration")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Primary_Vigor, "Attributes.Primary.Vigor", "Increases Health")
 
-    GameplayTags.Attributes_Secondary_Armor =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.Armor"),
-                                     TEXT("Reduces damage taken, improves Block Chance"));
-    GameplayTags.Attributes_Secondary_ArmorPenetration =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.ArmorPenetration"),
-                                     TEXT("Ignores Percentage of enemy Armor, increases Critical Hit Chance"));
-    GameplayTags.Attributes_Secondary_BlockChance =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.BlockChance"),
-                                     TEXT("Chance to cut incoming damage in half"));
-    GameplayTags.Attributes_Secondary_CriticalHitChance =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.CriticalHitChance"),
-                                     TEXT("Chance to double damage plus critical hit bonus"));
-    GameplayTags.Attributes_Secondary_CriticalHitDamage =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.CriticalHitDamage"),
-                                     TEXT("Bonus damage added when a critical hit is scored"));
-    GameplayTags.Attributes_Secondary_CriticalHitResistance =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.CriticalHitResistance"),
-                                     TEXT("Reduces Critical Hit Chance of attacking enemies"));
-    GameplayTags.Attributes_Secondary_HealthRegeneration =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.HealthRegeneration"),
-                                     TEXT("Amount of Health regenerated every 1 second"));
-    GameplayTags.Attributes_Secondary_ManaRegeneration =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.ManaRegeneration"),
-                                     TEXT("Amount of Mana regenerated every 1 second"));
-    GameplayTags.Attributes_Secondary_MaxHealth =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.MaxHealth"),
-                                     TEXT("Maximum amount of Health obtainable"));
-    GameplayTags.Attributes_Secondary_MaxMana =
-        Manager.AddNativeGameplayTag(FName("Attributes.Secondary.MaxMana"), TEXT("Maximum amount of Mana obtainable"));
-}
+    // --------------------------------------------------- //
+    // Secondary Attribute Tags
+    // --------------------------------------------------- //
+
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_Armor,
+                                   "Attributes.Secondary.Armor",
+                                   "Reduces damage taken, improves Block Chance")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_ArmorPenetration,
+                                   "Attributes.Secondary.ArmorPenetration",
+                                   "Ignores Percentage of enemy Armor, increases Critical Hit Chance")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_BlockChance,
+                                   "Attributes.Secondary.BlockChance",
+                                   "Chance to cut incoming damage in half")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_CriticalHitChance,
+                                   "Attributes.Secondary.CriticalHitChance",
+                                   "Chance to double damage plus critical hit bonus")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_CriticalHitDamage,
+                                   "Attributes.Secondary.CriticalHitDamage",
+                                   "Bonus damage added when a critical hit is scored")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_CriticalHitResistance,
+                                   "Attributes.Secondary.CriticalHitResistance",
+                                   "Reduces Critical Hit Chance of attacking enemies")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_HealthRegeneration,
+                                   "Attributes.Secondary.HealthRegeneration",
+                                   "Amount of Health regenerated every 1 second")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_ManaRegeneration,
+                                   "Attributes.Secondary.ManaRegeneration",
+                                   "Amount of Mana regenerated every 1 second")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_MaxHealth,
+                                   "Attributes.Secondary.MaxHealth",
+                                   "Maximum amount of Health obtainable")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Secondary_MaxMana,
+                                   "Attributes.Secondary.MaxMana",
+                                   "Maximum amount of Mana obtainable")
+} // namespace AuraGameplayTags
