@@ -7,8 +7,8 @@ bool FAuraAttributeDef::IsValid() const
     return Tag.IsValid() && !Name.IsEmpty();
 }
 
-FAuraAttributeDef UAttributeInfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag,
-                                                          const bool bLogNotFound) const
+FAuraAttributeDef UAttributeInfo::FindAttributeDefForTag(const FGameplayTag& AttributeTag,
+                                                         const bool bLogNotFound) const
 {
     for (const auto& Info : Attributes)
     {
