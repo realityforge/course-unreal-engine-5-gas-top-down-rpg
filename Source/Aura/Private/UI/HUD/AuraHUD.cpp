@@ -41,6 +41,7 @@ UAuraUserWidget* AAuraHUD::CreateAttributeMenuWidget()
     return Widget;
 }
 
+#if WITH_EDITOR
 EDataValidationResult AAuraHUD::IsDataValid(FDataValidationContext& Context) const
 {
     auto Result = CombineDataValidationResults(Super::IsDataValid(Context), EDataValidationResult::Valid);
@@ -83,3 +84,4 @@ EDataValidationResult AAuraHUD::IsDataValid(FDataValidationContext& Context) con
 
     return Result;
 }
+#endif
