@@ -50,6 +50,7 @@ public:
     /**
      * Method that emits any events from controller to setup initial values exposed to any views.
      */
+    UFUNCTION(BlueprintCallable)
     virtual void BroadcastInitialValues();
 
     /**
