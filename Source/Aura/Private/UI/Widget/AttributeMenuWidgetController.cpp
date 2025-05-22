@@ -1,9 +1,35 @@
 #include "UI/Widget/AttributeMenuWidgetController.h"
+#include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/Data/AttributeInfo.h"
+#include "Misc/DataValidation.h"
 
-void UAttributeMenuWidgetController::BroadcastInitialValues() {}
+void UAttributeMenuWidgetController::BroadcastInitialValues()
+{
+    check(AttributeInfo);
 
-void UAttributeMenuWidgetController::BindCallbacksToDependencies() {}
+    // ReSharper disable once CppTooWideScopeInitStatement
+    const auto AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
+
+    for (const auto& Entry : AuraAttributeSet->GetAttributeMapRef())
+    {
+        BroadcastAttributeInfo(Entry.Key, Entry.Value());
+    }
+}
+
+void UAttributeMenuWidgetController::BindCallbacksToDependencies()
+{
+    check(AttributeInfo);
+    // ReSharper disable once CppTooWideScopeInitStatement
+    const auto AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
+
+    for (const auto& Entry : AuraAttributeSet->GetAttributeMapRef())
+    {
+        const auto Tag = Entry.Key;
+        const auto Attribute = Entry.Value();
+        AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Attribute).AddLambda(
+            [this, Tag, Attribute](const auto& _) { BroadcastAttributeInfo(Tag, Attribute); });
+    }
+}
 
 #if WITH_EDITOR
 EDataValidationResult UAttributeMenuWidgetController::IsDataValid(FDataValidationContext& Context) const

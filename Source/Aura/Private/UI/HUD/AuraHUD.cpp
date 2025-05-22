@@ -33,12 +33,12 @@ UAuraUserWidget* AAuraHUD::CreateAttributeMenuWidget()
 
     const auto WidgetControllerParams = PlayerController->CreateWidgetControllerParams();
 
-    const auto WidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
-    WidgetController->SetWidgetControllerParams(WidgetControllerParams);
+    AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+    AttributeMenuWidgetController->SetWidgetControllerParams(WidgetControllerParams);
 
-    const auto Widget = NewObject<UAuraUserWidget>(this, AttributeMenuWidgetClass);
-    Widget->SetWidgetController(WidgetController);
-    return Widget;
+    AttributeMenuWidget = NewObject<UAuraUserWidget>(this, AttributeMenuWidgetClass);
+    AttributeMenuWidget->SetWidgetController(AttributeMenuWidgetController);
+    return AttributeMenuWidget;
 }
 
 #if WITH_EDITOR

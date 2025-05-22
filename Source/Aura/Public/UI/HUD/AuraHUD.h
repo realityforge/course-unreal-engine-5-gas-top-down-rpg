@@ -51,5 +51,11 @@ private:
     UPROPERTY(EditAnywhere)
     TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass{ nullptr };
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    TObjectPtr<UAuraUserWidget> AttributeMenuWidget{ nullptr };
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    TObjectPtr<UAttributeMenuWidgetController> AttributeMenuWidgetController{ nullptr };
+
 #pragma endregion
 };

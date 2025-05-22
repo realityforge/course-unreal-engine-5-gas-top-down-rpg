@@ -28,7 +28,7 @@ struct FAuraAttributeInfo
     GENERATED_BODY()
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-    FAuraAttributeDef Def;
+    FAuraAttributeDef Attribute;
 
     UPROPERTY(BlueprintReadOnly)
     float Value{ 0.f };
