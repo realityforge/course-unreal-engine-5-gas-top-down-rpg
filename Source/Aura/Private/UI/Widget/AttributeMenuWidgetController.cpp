@@ -1,4 +1,5 @@
 #include "UI/Widget/AttributeMenuWidgetController.h"
+#include "AbilitySystem/Data/AttributeInfo.h"
 
 void UAttributeMenuWidgetController::BroadcastInitialValues() {}
 
@@ -24,3 +25,15 @@ EDataValidationResult UAttributeMenuWidgetController::IsDataValid(FDataValidatio
     return Result;
 }
 #endif
+
+void UAttributeMenuWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag,
+                                                            const FGameplayAttribute& Attribute) const
+{
+    // ReSharper disable once CppTooWideScopeInitStatement
+    const auto AttributeDef = AttributeInfo->FindAttributeDefForTag(AttributeTag);
+    if (AttributeDef.IsValid())
+    {
+        const float Value = Attribute.GetNumericValue(AttributeSet);
+        AttributeInfoDelegate.Broadcast(FAuraAttributeInfo{ AttributeDef, Value });
+    }
+}
