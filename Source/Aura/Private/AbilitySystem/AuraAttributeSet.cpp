@@ -1,11 +1,31 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "AuraGameplayTags.h"
 #include "GameFramework/Character.h"
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
-UAuraAttributeSet::UAuraAttributeSet() {}
+UAuraAttributeSet::UAuraAttributeSet()
+{
+    // Primary Attributes
+    AttributeMap.Add(AuraGameplayTags::Attributes_Primary_Strength, GetStrengthAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Primary_Intelligence, GetIntelligenceAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Primary_Resilience, GetResilienceAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Primary_Vigor, GetVigorAttribute);
+
+    // Secondary Attributes
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_Armor, GetArmorAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_ArmorPenetration, GetArmorPenetrationAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_BlockChance, GetBlockChanceAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_CriticalHitChance, GetCriticalHitChanceAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_CriticalHitDamage, GetCriticalHitDamageAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_CriticalHitResistance, GetCriticalHitResistanceAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_HealthRegeneration, GetHealthRegenerationAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_ManaRegeneration, GetManaRegenerationAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_MaxHealth, GetMaxHealthAttribute);
+    AttributeMap.Add(AuraGameplayTags::Attributes_Secondary_MaxMana, GetMaxManaAttribute);
+}
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)

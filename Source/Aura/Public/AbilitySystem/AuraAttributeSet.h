@@ -40,6 +40,9 @@ struct FEffectProperties
     ACharacter* TargetCharacter{ nullptr };
 };
 
+template <class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
@@ -210,7 +213,15 @@ public:
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+    FORCEINLINE TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>>& GetAttributeMapRef() { return AttributeMap; }
+
 private:
     // No idea why we do this at all here in attributes ...
     void GetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
+
+    /**
+     * GameplayTag to Attribute map.
+     * Every attribute has one and only one GameplayTag that maps to it.
+     */
+    TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> AttributeMap;
 };
