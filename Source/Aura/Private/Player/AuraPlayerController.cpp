@@ -11,7 +11,7 @@ AAuraPlayerController::AAuraPlayerController()
     bReplicates = true;
 }
 
-void AAuraPlayerController::PlayerTick(float DeltaTime)
+void AAuraPlayerController::PlayerTick(const float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
 
@@ -58,7 +58,7 @@ void AAuraPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
 
-    auto EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+    const auto EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
     check(MoveAction);
 
@@ -70,7 +70,7 @@ void AAuraPlayerController::BeginPlay()
     Super::BeginPlay();
     checkf(InputMappingContext, TEXT("InputMappingContext not specified"));
 
-    if (auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+    if (const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
     {
         Subsystem->AddMappingContext(InputMappingContext, 0);
     }
