@@ -10,9 +10,6 @@ struct FInputActionValue;
 class UInputAction;
 class UInputMappingContext;
 
-/**
- *
- */
 UCLASS(Abstract)
 class AURA_API AAuraPlayerController : public APlayerController
 {
