@@ -23,9 +23,7 @@ public:
 #pragma endregion
 
 protected:
-    virtual void BeginPlay() override;
-
-    virtual void SetupAbilityActorInfo() override;
+    virtual void InitAbilityActorInfo() override;
 
 private:
     /** Move this value outside of attributes ... for no reason other than so we can experiment with MMC  */

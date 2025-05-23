@@ -9,9 +9,13 @@ AAuraEnemy::AAuraEnemy()
     // intersect with enemy mesh.
     GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
-    AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
-    AbilitySystemComponent->SetIsReplicated(true);
-    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+    SetOwnerPolicy(EAbilitySystemComponentOwnerPolicy::CharacterOwned);
+    SetSetupPolicy(EAbilitySystemComponentSetupPolicy::BeginPlay);
+
+    const auto ASC = CreateDefaultSubobject<UAuraAbilitySystemComponent>(NAME_AbilitySystemComponent);
+    ASC->SetIsReplicated(true);
+    ASC->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+    SetAbilitySystemComponent(ASC);
 
     AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 }
@@ -37,17 +41,12 @@ int32 AAuraEnemy::GetPlayerLevel()
     return Level;
 }
 
-void AAuraEnemy::BeginPlay()
+void AAuraEnemy::InitAbilityActorInfo()
 {
-    Super::BeginPlay();
-    SetupAbilityActorInfo();
-}
+    Super::InitAbilityActorInfo();
 
-void AAuraEnemy::SetupAbilityActorInfo()
-{
-    AbilitySystemComponent->InitAbilityActorInfo(this, this);
     InitializeDefaultAttributes();
-    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponentFast()))
     {
         AuraAbilitySystemComponent->AbilityActorInfoSet();
     }

@@ -11,6 +11,9 @@
 
 AAuraCharacter::AAuraCharacter()
 {
+    SetOwnerPolicy(EAbilitySystemComponentOwnerPolicy::PlayerStateOwned);
+    SetSetupPolicy(EAbilitySystemComponentSetupPolicy::OnPossess);
+
     SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
     SpringArmComponent->SetupAttachment(GetRootComponent());
     SpringArmComponent->TargetArmLength = 750.0f;
@@ -37,20 +40,12 @@ AAuraCharacter::AAuraCharacter()
     bUseControllerRotationRoll = false;
 }
 
-void AAuraCharacter::PossessedBy(AController* NewController)
+void AAuraCharacter::InitAbilityActorInfo()
 {
-    Super::PossessedBy(NewController);
+    Super::InitAbilityActorInfo();
 
-    // Init AbilityActorInfo on Server
-    SetupAbilityActorInfo();
-}
-
-void AAuraCharacter::SetupAbilityActorInfo()
-{
     const auto AuraPlayerState = GetPlayerState<AAuraPlayerState>();
     check(AuraPlayerState);
-    AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponentFast();
-    AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
     AttributeSet = AuraPlayerState->GetAttributeSet();
     if (const auto PlayerController = Cast<AAuraPlayerController>(GetController()))
     {
@@ -63,18 +58,10 @@ void AAuraCharacter::SetupAbilityActorInfo()
     {
         InitializeDefaultAttributes();
     }
-    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponentFast()))
     {
         AuraAbilitySystemComponent->AbilityActorInfoSet();
     }
-}
-
-void AAuraCharacter::OnRep_PlayerState()
-{
-    Super::OnRep_PlayerState();
-
-    // Init AbilityActorInfo on Client
-    SetupAbilityActorInfo();
 }
 
 int32 AAuraCharacter::GetPlayerLevel()

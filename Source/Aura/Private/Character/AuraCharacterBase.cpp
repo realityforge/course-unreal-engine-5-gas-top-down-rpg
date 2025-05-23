@@ -14,11 +14,6 @@ AAuraCharacterBase::AAuraCharacterBase()
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
-UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
-{
-    return AbilitySystemComponent;
-}
-
 #if WITH_EDITOR
 EDataValidationResult AAuraCharacterBase::IsDataValid(FDataValidationContext& Context) const
 {
@@ -52,26 +47,26 @@ EDataValidationResult AAuraCharacterBase::IsDataValid(FDataValidationContext& Co
 }
 #endif
 
-void AAuraCharacterBase::SetupAbilityActorInfo() {}
-
 void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass,
                                            const float Level) const
 {
-    check(IsValid(AbilitySystemComponent));
+    const auto ASC = GetAbilitySystemComponentFast();
+    check(IsValid(ASC));
 
     if (IsValid(GameplayEffectClass))
     {
-        auto ContextHandle = AbilitySystemComponent->MakeEffectContext();
+        auto ContextHandle = ASC->MakeEffectContext();
         // Configure SourceObject (We use it in MMC_MaxHealth and MMC_MaxMana)
         ContextHandle.AddSourceObject(this);
-        const auto SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
-        AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), AbilitySystemComponent);
+        const auto SpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
+        ASC->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), ASC);
     }
 }
 
 void AAuraCharacterBase::InitializeDefaultAttributes() const
 {
-    check(IsValid(AbilitySystemComponent));
+    check(IsValid(GetAbilitySystemComponentFast()));
+
     ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
     ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
     // Initial Vital Attributes are based off Secondary attributes (i.e. Health is based off MaxHealth)

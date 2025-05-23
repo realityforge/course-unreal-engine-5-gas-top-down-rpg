@@ -19,13 +19,10 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
     TObjectPtr<USpringArmComponent> SpringArmComponent{ nullptr };
 
 protected:
-    virtual void SetupAbilityActorInfo() override;
+    virtual void InitAbilityActorInfo() override;
 
 public:
     AAuraCharacter();
-
-    virtual void PossessedBy(AController* NewController) override;
-    virtual void OnRep_PlayerState() override;
 
 #pragma region ICombatInterface
     virtual int32 GetPlayerLevel() override;
