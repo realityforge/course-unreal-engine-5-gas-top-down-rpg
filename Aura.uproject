@@ -10,8 +10,7 @@
       "LoadingPhase": "Default",
       "AdditionalDependencies": [
         "Engine",
-        "GameplayAbilities",
-        "ModularGasGameplayActors",
+        "Aeon",
         "ModularGameplayActors",
         "UMG",
         "CoreUObject"
@@ -28,6 +27,10 @@
     },
     {
       "Name": "ModularGameplay",
+      "Enabled": true
+    },
+    {
+      "Name": "Aeon",
       "Enabled": true
     },
     {
