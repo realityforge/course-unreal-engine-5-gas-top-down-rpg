@@ -1,5 +1,7 @@
 #include "UI/Widget/AuraWidgetController.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(AuraWidgetController)
+
 void UAuraWidgetController::SetWidgetControllerParams(const FWidgetControllerParams& WidgetControllerParams)
 {
     PlayerController = WidgetControllerParams.PlayerController;

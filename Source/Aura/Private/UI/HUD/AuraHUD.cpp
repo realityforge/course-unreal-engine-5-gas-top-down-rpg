@@ -6,6 +6,8 @@
 #include "UI/Widget/AuraUserWidget.h"
 #include "UI/Widget/OverlayWidgetController.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(AuraHUD)
+
 UAuraUserWidget* AAuraHUD::CreateOverlayWidget()
 {
     checkf(OverlayWidgetClass, TEXT("AAuraHUD has not specified the property OverlayWidgetClass"));

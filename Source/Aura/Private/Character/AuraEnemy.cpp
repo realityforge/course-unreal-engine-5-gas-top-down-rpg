@@ -3,6 +3,8 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Aura/Aura.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(AuraEnemy)
+
 AAuraEnemy::AAuraEnemy()
 {
     // Block visibility. Used so that the under cursor trace (for highlighting) will

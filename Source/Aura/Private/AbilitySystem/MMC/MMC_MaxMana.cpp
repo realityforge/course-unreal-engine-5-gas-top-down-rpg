@@ -2,6 +2,8 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Interaction/CombatInterface.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(MMC_MaxMana)
+
 UMMC_MaxMana::UMMC_MaxMana()
 {
     // Here we set up all the captures we will require in the Calculate method.

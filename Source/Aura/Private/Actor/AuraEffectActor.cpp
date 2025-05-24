@@ -3,6 +3,8 @@
 #include "AbilitySystemComponent.h"
 #include "Misc/DataValidation.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(AuraEffectActor)
+
 AAuraEffectActor::AAuraEffectActor()
 {
     SetRootComponent(CreateDefaultSubobject<USceneComponent>("SceneRoot"));

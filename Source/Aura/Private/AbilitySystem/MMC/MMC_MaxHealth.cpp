@@ -2,6 +2,8 @@
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Interaction/CombatInterface.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(MMC_MaxHealth)
+
 UMMC_MaxHealth::UMMC_MaxHealth()
 {
     // Here we set up all the captures we will require in the Calculate method.

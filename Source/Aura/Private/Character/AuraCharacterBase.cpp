@@ -4,6 +4,8 @@
 #include "GameplayEffectTypes.h"
 #include "Misc/DataValidation.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(AuraCharacterBase)
+
 static FName NAME_WeaponHandSocket("WeaponHandSocket");
 
 AAuraCharacterBase::AAuraCharacterBase()

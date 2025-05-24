@@ -2,6 +2,8 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(OverlayWidgetController)
+
 UAuraAttributeSet* UOverlayWidgetController::GetAuraAttributeSet() const
 {
     check(AttributeSet.Get());
