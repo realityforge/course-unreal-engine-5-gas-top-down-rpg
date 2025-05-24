@@ -12,6 +12,7 @@
         "Engine",
         "Aeon",
         "ModularGameplayActors",
+        "EnhancedInput",
         "UMG",
         "CoreUObject"
       ]

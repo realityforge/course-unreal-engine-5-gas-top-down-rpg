@@ -6,6 +6,7 @@
 #include "UI/Widget/AuraWidgetController.h"
 #include "AuraPlayerController.generated.h"
 
+class UAeonInputConfig;
 struct FInputActionValue;
 class UInputAction;
 class UInputMappingContext;
@@ -32,8 +33,8 @@ protected:
     virtual void BeginPlay() override;
 
 private:
-    UPROPERTY(EditAnywhere, Category = "Input")
-    TObjectPtr<UInputMappingContext> InputMappingContext{ nullptr };
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UAeonInputConfig> InputConfig{ nullptr };
 
     UPROPERTY(EditAnywhere, Category = "Input")
     TObjectPtr<UInputAction> MoveAction{ nullptr };
@@ -44,4 +45,8 @@ private:
     TScriptInterface<IEnemyInterface> CurrentActorUnderCursor{ nullptr };
 
     void CursorTrace();
+
+    void Input_AbilityInputPressed(const FGameplayTag InGameplayTag);
+    void Input_AbilityInputReleased(const FGameplayTag InGameplayTag);
+    void Input_AbilityInputHeld(const FGameplayTag InGameplayTag);
 };

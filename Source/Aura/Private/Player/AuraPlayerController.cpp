@@ -1,4 +1,5 @@
 #include "Player/AuraPlayerController.h"
+#include "Aeon/Input/AeonInputConfig.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
@@ -26,10 +27,10 @@ EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext&
 
     if (!GetClass()->HasAnyClassFlags(CLASS_Abstract))
     {
-        if (!IsValid(InputMappingContext))
+        if (!IsValid(InputConfig))
         {
             const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
-                                                     "the property InputMappingContext"),
+                                                     "the property InputConfig"),
                                                 *GetActorNameOrLabel());
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
@@ -62,20 +63,25 @@ void AAuraPlayerController::SetupInputComponent()
 
     const auto EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
-    check(MoveAction);
+    checkf(MoveAction, TEXT("MoveAction not specified"));
 
     EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+
+    InputConfig->BindAbilityInputAction(EnhancedInputComponent,
+                                        this,
+                                        &ThisClass::Input_AbilityInputPressed,
+                                        &ThisClass::Input_AbilityInputReleased,
+                                        &ThisClass::Input_AbilityInputHeld);
 }
 
 void AAuraPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    checkf(InputMappingContext, TEXT("InputMappingContext not specified"));
+    checkf(InputConfig, TEXT("InputConfig not specified"));
 
-    if (const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-    {
-        Subsystem->AddMappingContext(InputMappingContext, 0);
-    }
+    const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+    checkf(Subsystem, TEXT("Unable to locate EnhancedInputLocalPlayerSubsystem. Misconfigured project?"));
+    Subsystem->AddMappingContext(InputConfig->GetDefaultMappingContext(), 0);
 
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
@@ -134,4 +140,19 @@ void AAuraPlayerController::CursorTrace()
             CurrentActorUnderCursor->HighlightActor();
         }
     }
+}
+
+void AAuraPlayerController::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
+{
+    UE_LOGFMT(LogTemp, Error, "Input_AbilityInputPressed: {Input}", InGameplayTag.ToString());
+}
+
+void AAuraPlayerController::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
+{
+    UE_LOGFMT(LogTemp, Error, "Input_AbilityInputReleased: {Input}", InGameplayTag.ToString());
+}
+
+void AAuraPlayerController::Input_AbilityInputHeld(const FGameplayTag InGameplayTag)
+{
+    UE_LOGFMT(LogTemp, Error, "Input_AbilityInputHeld: {Input}", InGameplayTag.ToString());
 }
