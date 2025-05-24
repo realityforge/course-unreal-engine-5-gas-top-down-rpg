@@ -38,4 +38,15 @@ namespace AuraGameplayTags
     AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_ManaCrystal)
     AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_ManaPotion)
 
+    // --------------------------------------------------- //
+    // Input Tags
+    // --------------------------------------------------- //
+
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Mouse_LeftButton)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Mouse_RightButton)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Keyboard_1)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Keyboard_2)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Keyboard_3)
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Keyboard_4)
+
 } // namespace AuraGameplayTags

@@ -61,4 +61,17 @@ namespace AuraGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Message_ManaCrystal, "Message.ManaCrystal")
     UE_DEFINE_GAMEPLAY_TAG(Message_ManaPotion, "Message.ManaPotion")
 
+    // --------------------------------------------------- //
+    // Input Tags
+    // --------------------------------------------------- //
+
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Mouse_LeftButton, "Input.Mouse.LeftButton", "Input tag for Left Mouse Button")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Mouse_RightButton,
+                                   "Input.Mouse.RightButton",
+                                   "Input tag for Right Mouse Button")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Keyboard_1, "Input.Keyboard.1", "Input tag for 1 Key")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Keyboard_2, "Input.Keyboard.2", "Input tag for 2 Key")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Keyboard_3, "Input.Keyboard.3", "Input tag for 3 Key")
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Keyboard_4, "Input.Keyboard.4", "Input tag for 4 Key")
+
 } // namespace AuraGameplayTags
