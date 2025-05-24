@@ -31,6 +31,8 @@ class AURA_API UAuraInputConfig : public UDataAsset
 public:
     const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
 
+    FORCEINLINE const TArray<FAuraInputAction>& GetActions() const { return Actions; }
+
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
