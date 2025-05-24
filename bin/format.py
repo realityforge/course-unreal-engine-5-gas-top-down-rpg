@@ -17,7 +17,7 @@ import argparse
 import json
 import os
 
-plugins_to_process = ["RuleRanger", "ModularGasGameplayActors"]
+plugins_to_process = ["Aeon", "ModularGasGameplayActors", "RuleRanger"]
 
 parser = argparse.ArgumentParser(description="Unreal Source Code Formatter")
 
