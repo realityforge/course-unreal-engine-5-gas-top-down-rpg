@@ -1,6 +1,4 @@
 #include "Character/AuraCharacter.h"
-#include "AbilitySystem/AuraAbilitySystemComponent.h"
-#include "AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -42,8 +40,6 @@ AAuraCharacter::AAuraCharacter()
 
 void AAuraCharacter::InitAbilityActorInfo()
 {
-    Super::InitAbilityActorInfo();
-
     const auto AuraPlayerState = GetPlayerState<AAuraPlayerState>();
     check(AuraPlayerState);
     AttributeSet = AuraPlayerState->GetAttributeSet();
@@ -54,14 +50,8 @@ void AAuraCharacter::InitAbilityActorInfo()
             HUD->CreateOverlayWidget()->AddToViewport();
         }
     }
-    if (IsLocallyControlled())
-    {
-        InitializeDefaultAttributes();
-    }
-    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponentFast()))
-    {
-        AuraAbilitySystemComponent->AbilityActorInfoSet();
-    }
+
+    Super::InitAbilityActorInfo();
 }
 
 int32 AAuraCharacter::GetPlayerLevel()

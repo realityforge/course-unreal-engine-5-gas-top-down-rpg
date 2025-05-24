@@ -40,14 +40,3 @@ int32 AAuraEnemy::GetPlayerLevel()
 {
     return Level;
 }
-
-void AAuraEnemy::InitAbilityActorInfo()
-{
-    Super::InitAbilityActorInfo();
-
-    InitializeDefaultAttributes();
-    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponentFast()))
-    {
-        AuraAbilitySystemComponent->AbilityActorInfoSet();
-    }
-}

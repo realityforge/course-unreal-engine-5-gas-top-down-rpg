@@ -22,9 +22,6 @@ public:
     virtual int32 GetPlayerLevel() override;
 #pragma endregion
 
-protected:
-    virtual void InitAbilityActorInfo() override;
-
 private:
     /** Move this value outside of attributes ... for no reason other than so we can experiment with MMC  */
     UPROPERTY(EditAnywhere,

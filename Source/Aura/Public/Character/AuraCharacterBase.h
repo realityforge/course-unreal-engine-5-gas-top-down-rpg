@@ -1,18 +1,16 @@
 #pragma once
 
+#include "Aeon/Character/AeonCharacterBase.h"
 #include "CoreMinimal.h"
 #include "Interaction/CombatInterface.h"
-#include "ModularGasCharacter.h"
 #include "AuraCharacterBase.generated.h"
 
 class UGameplayEffect;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
-// TODO: Should refactor AAeonCharacterBase and use that as a base. It may mean refactoring code still in Shokada...
-
 UCLASS(Abstract)
-class AURA_API AAuraCharacterBase : public AModularGasCharacter, public ICombatInterface
+class AURA_API AAuraCharacterBase : public AAeonCharacterBase, public ICombatInterface
 {
     GENERATED_BODY()
 
@@ -27,7 +25,7 @@ private:
     void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const;
 
 protected:
-    void InitializeDefaultAttributes() const;
+    virtual void OnAbilitySystemComponentInitialized() override;
 
     /** Mesh representing the weapon the character is carrying. */
     UPROPERTY(VisibleAnywhere, Category = "Combat")
@@ -35,15 +33,6 @@ protected:
 
     UPROPERTY()
     TObjectPtr<UAttributeSet> AttributeSet{ nullptr };
-
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
-    TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes{ nullptr };
-
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
-    TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes{ nullptr };
-
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
-    TSubclassOf<UGameplayEffect> DefaultVitalAttributes{ nullptr };
 
 public:
     FORCEINLINE UAttributeSet* GetAttributeSet() const { return AttributeSet; }

@@ -1,4 +1,5 @@
 #include "Character/AuraCharacterBase.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystemComponent.h"
 #include "GameplayEffectTypes.h"
 #include "Misc/DataValidation.h"
@@ -63,13 +64,10 @@ void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& G
     }
 }
 
-void AAuraCharacterBase::InitializeDefaultAttributes() const
+void AAuraCharacterBase::OnAbilitySystemComponentInitialized()
 {
-    check(IsValid(GetAbilitySystemComponentFast()));
-
-    ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
-    ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
-    // Initial Vital Attributes are based off Secondary attributes (i.e. Health is based off MaxHealth)
-    // Thus we need to apply this effect last
-    ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+    if (const auto AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponentFast()))
+    {
+        AuraAbilitySystemComponent->AbilityActorInfoSet();
+    }
 }
