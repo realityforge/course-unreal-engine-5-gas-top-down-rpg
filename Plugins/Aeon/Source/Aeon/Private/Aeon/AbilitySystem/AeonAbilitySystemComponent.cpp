@@ -18,11 +18,112 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AeonAbilitySystemComponent)
 
-#pragma region AbilityTagRelationship Support
+bool UAeonAbilitySystemComponent::IsToggleTag(const FGameplayTag& InTag)
+{
+    return false;
+}
 
-// --------------------------------------------------- //
-// AbilityTagRelationship Support
-// --------------------------------------------------- //
+void UAeonAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& Tag)
+{
+    if (ensure(Tag.IsValid()))
+    {
+        bool bMatched = false;
+        for (auto& AbilitySpec : GetActivatableAbilities())
+        {
+            if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(Tag))
+            {
+                // ReSharper disable once CppTooWideScopeInitStatement
+                const bool bIsActive = AbilitySpec.IsActive();
+                if (IsToggleTag(Tag) && bIsActive)
+                {
+                    CancelAbilityHandle(AbilitySpec.Handle);
+                }
+                else
+                {
+                    AbilitySpecInputPressed(AbilitySpec);
+                    if (!bIsActive)
+                    {
+                        TryActivateAbility(AbilitySpec.Handle);
+                    }
+                }
+                bMatched = true;
+            }
+        }
+        if (!bMatched)
+        {
+            UE_LOGFMT(Aeon,
+                      Warning,
+                      "UAeonAbilitySystemComponent::OnAbilityInputPressed: "
+                      "Unable to activate any ability with tag {Tag}",
+                      Tag.GetTagName());
+        }
+    }
+    else
+    {
+        UE_LOGFMT(Aeon, Warning, "UAeonAbilitySystemComponent::OnAbilityInputPressed: Invalid tag parameter");
+    }
+}
+
+void UAeonAbilitySystemComponent::OnAbilityInputHeld(const FGameplayTag& Tag)
+{
+    if (ensure(Tag.IsValid()))
+    {
+        bool bMatched = false;
+        for (auto& AbilitySpec : GetActivatableAbilities())
+        {
+            if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(Tag))
+            {
+                AbilitySpecInputPressed(AbilitySpec);
+                if (!AbilitySpec.IsActive())
+                {
+                    TryActivateAbility(AbilitySpec.Handle);
+                }
+                bMatched = true;
+            }
+        }
+        if (!bMatched)
+        {
+            UE_LOGFMT(Aeon,
+                      Warning,
+                      "UAeonAbilitySystemComponent::OnAbilityInputHeld: "
+                      "Unable to activate any ability with tag {Tag}",
+                      Tag.GetTagName());
+        }
+    }
+    else
+    {
+        UE_LOGFMT(Aeon, Warning, "UAeonAbilitySystemComponent::OnAbilityInputHeld: Invalid tag parameter");
+    }
+}
+
+bool UAeonAbilitySystemComponent::IsCancelOnReleaseTag(const FGameplayTag& Tag)
+{
+    return false;
+}
+
+void UAeonAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& Tag)
+{
+    if (ensure(Tag.IsValid()))
+    {
+        for (auto& AbilitySpec : GetActivatableAbilities())
+        {
+            if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(Tag) && AbilitySpec.IsActive())
+            {
+                AbilitySpecInputReleased(AbilitySpec);
+                if (IsCancelOnReleaseTag(Tag))
+                {
+                    CancelAbilityHandle(AbilitySpec.Handle);
+                }
+            }
+        }
+    }
+    else
+    {
+        UE_LOGFMT(Aeon, Warning, "UAeonAbilitySystemComponent::OnAbilityInputReleased: Invalid tag parameter");
+    }
+}
+
+#pragma region AbilityTagRelationship Support
 
 void UAeonAbilitySystemComponent::SetTagRelationshipMapping(
     UAeonAbilityTagRelationshipMapping* InTagRelationshipMapping)
@@ -51,8 +152,8 @@ void UAeonAbilitySystemComponent::ApplyAbilityBlockAndCancelTags(const FGameplay
 {
     if (TagRelationshipMapping)
     {
-        FGameplayTagContainer AllBlockTags = BlockTags;
-        FGameplayTagContainer AllCancelTags = CancelTags;
+        auto AllBlockTags = BlockTags;
+        auto AllCancelTags = CancelTags;
         TagRelationshipMapping->GetAbilityTagsToBlockAndCancel(AbilityTags, AllBlockTags, AllCancelTags);
 
         UE_LOGFMT(AeonTagRelationship,
@@ -119,5 +220,4 @@ void UAeonAbilitySystemComponent::GetAdditionalTagRequirements(const FGameplayTa
     }
 }
 
-// --------------------------------------------------- //
 #pragma endregion
