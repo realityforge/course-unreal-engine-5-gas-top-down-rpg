@@ -33,15 +33,15 @@ void UAeonAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& Tag)
             if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(Tag))
             {
                 // ReSharper disable once CppTooWideScopeInitStatement
-                const bool bIsActive = AbilitySpec.IsActive();
-                if (IsToggleTag(Tag) && bIsActive)
+                const bool bAbilitySpecIsActive = AbilitySpec.IsActive();
+                if (IsToggleTag(Tag) && bAbilitySpecIsActive)
                 {
                     CancelAbilityHandle(AbilitySpec.Handle);
                 }
                 else
                 {
                     AbilitySpecInputPressed(AbilitySpec);
-                    if (!bIsActive)
+                    if (!bAbilitySpecIsActive)
                     {
                         TryActivateAbility(AbilitySpec.Handle);
                     }
