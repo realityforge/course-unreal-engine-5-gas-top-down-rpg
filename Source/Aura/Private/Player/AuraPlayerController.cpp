@@ -1,4 +1,5 @@
 #include "Player/AuraPlayerController.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/Input/AeonInputConfig.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -140,6 +141,13 @@ void AAuraPlayerController::CursorTrace()
             CurrentActorUnderCursor->HighlightActor();
         }
     }
+}
+
+UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponent() const
+{
+    const auto PS = GetPlayerState<AAuraPlayerState>();
+    check(PS);
+    return CastChecked<UAeonAbilitySystemComponent>(PS->GetAbilitySystemComponent());
 }
 
 void AAuraPlayerController::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)

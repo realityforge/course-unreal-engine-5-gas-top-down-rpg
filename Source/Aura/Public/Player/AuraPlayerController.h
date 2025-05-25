@@ -6,6 +6,7 @@
 #include "UI/Widget/AuraWidgetController.h"
 #include "AuraPlayerController.generated.h"
 
+class UAeonAbilitySystemComponent;
 class UAeonInputConfig;
 struct FInputActionValue;
 class UInputAction;
@@ -45,6 +46,8 @@ private:
     TScriptInterface<IEnemyInterface> CurrentActorUnderCursor{ nullptr };
 
     void CursorTrace();
+
+    UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent() const;
 
     void Input_AbilityInputPressed(const FGameplayTag InGameplayTag);
     void Input_AbilityInputReleased(const FGameplayTag InGameplayTag);
