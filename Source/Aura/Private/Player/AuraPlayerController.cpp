@@ -1,4 +1,5 @@
 #include "Player/AuraPlayerController.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/Input/AeonInputConfig.h"
 #include "EnhancedInputComponent.h"
@@ -153,17 +154,17 @@ UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponen
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
 {
-    UE_LOGFMT(LogTemp, Error, "Input_AbilityInputPressed: {Input}", InGameplayTag.ToString());
+    GetAeonAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
 {
-    UE_LOGFMT(LogTemp, Error, "Input_AbilityInputReleased: {Input}", InGameplayTag.ToString());
+    GetAeonAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputHeld(const FGameplayTag InGameplayTag)
 {
-    UE_LOGFMT(LogTemp, Error, "Input_AbilityInputHeld: {Input}", InGameplayTag.ToString());
+    GetAeonAbilitySystemComponent()->OnAbilityInputHeld(InGameplayTag);
 }
