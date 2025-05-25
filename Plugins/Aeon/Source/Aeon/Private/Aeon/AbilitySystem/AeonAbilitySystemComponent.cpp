@@ -20,6 +20,8 @@
 
 bool UAeonAbilitySystemComponent::IsToggleTag(const FGameplayTag& InTag)
 {
+    // TODO: Perhaps we should derive this from AbilitySpec.GetDynamicSpecSourceTags() which
+    //       would be populated by AbilitySet (via InputTags)
     return false;
 }
 
@@ -98,6 +100,8 @@ void UAeonAbilitySystemComponent::OnAbilityInputHeld(const FGameplayTag& Tag)
 
 bool UAeonAbilitySystemComponent::IsCancelOnReleaseTag(const FGameplayTag& Tag)
 {
+    // TODO: Perhaps we should derive this from AbilitySpec.GetDynamicSpecSourceTags() which
+    //       would be populated by AbilitySet (via InputTags)
     return false;
 }
 
