@@ -40,6 +40,9 @@ private:
     UPROPERTY(EditAnywhere, Category = "Input")
     TObjectPtr<UInputAction> MoveAction{ nullptr };
 
+    UPROPERTY()
+    TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
+
     void Move(const FInputActionValue& InputActionValue);
 
     TScriptInterface<IEnemyInterface> LastActorUnderCursor{ nullptr };
@@ -47,7 +50,7 @@ private:
 
     void CursorTrace();
 
-    UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent() const;
+    UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent();
 
     void Input_AbilityInputPressed(const FGameplayTag InGameplayTag);
     void Input_AbilityInputReleased(const FGameplayTag InGameplayTag);

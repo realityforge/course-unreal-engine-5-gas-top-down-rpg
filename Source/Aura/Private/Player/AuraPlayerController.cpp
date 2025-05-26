@@ -144,11 +144,15 @@ void AAuraPlayerController::CursorTrace()
     }
 }
 
-UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponent() const
+UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponent()
 {
-    const auto PS = GetPlayerState<AAuraPlayerState>();
-    check(PS);
-    return CastChecked<UAeonAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+    if (!IsValid(AeonAbilitySystemComponent))
+    {
+        const auto PS = GetPlayerState<AAuraPlayerState>();
+        check(PS);
+        AeonAbilitySystemComponent = CastChecked<UAeonAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+    }
+    return AeonAbilitySystemComponent;
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
