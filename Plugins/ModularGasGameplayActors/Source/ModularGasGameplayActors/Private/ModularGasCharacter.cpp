@@ -19,15 +19,11 @@
 
 const FName AModularGasCharacter::NAME_AbilitySystemComponent("AbilitySystemComponent");
 
-AModularGasCharacter::AModularGasCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
-
-void AModularGasCharacter::SetAbilitySystemComponent(UAbilitySystemComponent* InAbilitySystemComponent)
+AModularGasCharacter::AModularGasCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-    check(EAbilitySystemComponentOwnerPolicy::CharacterOwned == OwnerPolicy);
-    check(nullptr == AbilitySystemComponent);
-    check(InAbilitySystemComponent);
-
-    AbilitySystemComponent = InAbilitySystemComponent;
+    // The subclass should invoke ObjectInitializer.DoNotCreateDefaultSubobject(NAME_AbilitySystemComponent) if
+    // PlayerStateOwned == OwnerPolicy
+    AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(NAME_AbilitySystemComponent);
 }
 
 void AModularGasCharacter::InitAbilityActorInfo()

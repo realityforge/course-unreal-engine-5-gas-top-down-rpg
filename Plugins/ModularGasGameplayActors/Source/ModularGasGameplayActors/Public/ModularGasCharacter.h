@@ -83,22 +83,10 @@ class MODULARGASGAMEPLAYACTORS_API AModularGasCharacter : public AModularCharact
     EAbilitySystemComponentSetupPolicy SetupPolicy{ EAbilitySystemComponentSetupPolicy::BeginPlay };
 
     /** The Ability system associated with the character. */
-    UPROPERTY(VisibleInstanceOnly,
-              BlueprintReadOnly,
-              Category = "Aeon|AbilitySystem",
-              meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Aeon|AbilitySystem", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent{ nullptr };
 
 protected:
-    /**
-     * Sets the AbilitySystemComponent.
-     * This should be invoked from the Constructor and nowhere else.
-     * This should be invoked after SetOwnerPolicy has been set to CharacterOwned.
-     *
-     * @param InAbilitySystemComponent The AbilitySystemComponent to set.
-     */
-    void SetAbilitySystemComponent(UAbilitySystemComponent* InAbilitySystemComponent);
-
     /**
      * Sets the policy that determines which party owns the AbilitySystemComponent.
      * This should be invoked from the Constructor and nowhere else.
