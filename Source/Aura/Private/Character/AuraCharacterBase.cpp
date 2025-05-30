@@ -13,7 +13,15 @@ AAuraCharacterBase::AAuraCharacterBase()
     PrimaryActorTick.bCanEverTick = false;
 
     Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
-    Weapon->SetupAttachment(GetMesh(), NAME_WeaponHandSocket);
+
+    // To avoid a warning when opening abstract types in the editor, check that a
+    // socket exists before attempting to attach to it. The class will not be valid
+    // if a concrete class is missing this socket but this will be picked up in the
+    // IsDataValid() method.
+    if (const auto Mesh = GetMesh(); Mesh->DoesSocketExist(NAME_WeaponHandSocket))
+    {
+        Weapon->SetupAttachment(Mesh, NAME_WeaponHandSocket);
+    }
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
