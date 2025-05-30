@@ -1,13 +1,13 @@
 #pragma once
 
-#include "AbilitySystemComponent.h"
+#include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "CoreMinimal.h"
 #include "AuraAbilitySystemComponent.generated.h"
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTagsSignature, const FGameplayTagContainer& /*AssetTags*/);
 
 UCLASS()
-class AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
+class AURA_API UAuraAbilitySystemComponent : public UAeonAbilitySystemComponent
 {
     GENERATED_BODY()
 
