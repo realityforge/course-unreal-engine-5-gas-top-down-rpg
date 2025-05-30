@@ -20,7 +20,7 @@
     "Plugins/ModularGasGameplayActors": {
       "url": "https://github.com/realityforge/ModularGasGameplayActors.git",
       "branch": "main",
-      "revision": "607c39e2b49266e220d30f2afdbe1767e72750f5"
+      "revision": "036a6b3d128f8e78df33da75ce4e37b83b77d227"
     },
     "Plugins/RuleRanger": {
       "url": "https://github.com/realityforge/RuleRanger.git",
