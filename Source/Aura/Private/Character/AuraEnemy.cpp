@@ -5,7 +5,8 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AuraEnemy)
 
-AAuraEnemy::AAuraEnemy()
+AAuraEnemy::AAuraEnemy(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UAuraAbilitySystemComponent>(NAME_AbilitySystemComponent))
 {
     // Block visibility. Used so that the under cursor trace (for highlighting) will
     // intersect with enemy mesh.
@@ -14,10 +15,8 @@ AAuraEnemy::AAuraEnemy()
     SetOwnerPolicy(EAbilitySystemComponentOwnerPolicy::CharacterOwned);
     SetSetupPolicy(EAbilitySystemComponentSetupPolicy::BeginPlay);
 
-    const auto ASC = CreateDefaultSubobject<UAuraAbilitySystemComponent>(NAME_AbilitySystemComponent);
-    ASC->SetIsReplicated(true);
-    ASC->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
-    SetAbilitySystemComponent(ASC);
+    GetAbilitySystemComponentFast()->SetIsReplicated(true);
+    GetAbilitySystemComponentFast()->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
     AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 }

@@ -9,7 +9,8 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AuraCharacter)
 
-AAuraCharacter::AAuraCharacter()
+AAuraCharacter::AAuraCharacter(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer.DoNotCreateDefaultSubobject(NAME_AbilitySystemComponent))
 {
     SetOwnerPolicy(EAbilitySystemComponentOwnerPolicy::PlayerStateOwned);
     SetSetupPolicy(EAbilitySystemComponentSetupPolicy::OnPossess);

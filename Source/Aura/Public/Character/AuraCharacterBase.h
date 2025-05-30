@@ -15,7 +15,7 @@ class AURA_API AAuraCharacterBase : public AAeonCharacterBase, public ICombatInt
     GENERATED_BODY()
 
 public:
-    AAuraCharacterBase();
+    explicit AAuraCharacterBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;

@@ -11,7 +11,7 @@ class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
     GENERATED_BODY()
 
 public:
-    AAuraEnemy();
+    explicit AAuraEnemy(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 #pragma region IEnemyInterface
     virtual void HighlightActor() override;

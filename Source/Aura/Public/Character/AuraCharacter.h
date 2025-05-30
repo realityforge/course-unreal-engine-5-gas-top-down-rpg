@@ -22,7 +22,7 @@ protected:
     virtual void InitAbilityActorInfo() override;
 
 public:
-    AAuraCharacter();
+    explicit AAuraCharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 #pragma region ICombatInterface
     virtual int32 GetPlayerLevel() override;

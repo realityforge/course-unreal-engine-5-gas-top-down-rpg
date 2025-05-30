@@ -8,7 +8,7 @@
 
 static FName NAME_WeaponHandSocket("WeaponHandSocket");
 
-AAuraCharacterBase::AAuraCharacterBase()
+AAuraCharacterBase::AAuraCharacterBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
     PrimaryActorTick.bCanEverTick = false;
 
