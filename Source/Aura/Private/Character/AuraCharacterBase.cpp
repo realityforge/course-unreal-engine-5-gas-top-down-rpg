@@ -18,9 +18,9 @@ AAuraCharacterBase::AAuraCharacterBase(const FObjectInitializer& ObjectInitializ
     // socket exists before attempting to attach to it. The class will not be valid
     // if a concrete class is missing this socket but this will be picked up in the
     // IsDataValid() method.
-    if (const auto Mesh = GetMesh(); Mesh->DoesSocketExist(NAME_WeaponHandSocket))
+    if (const auto MeshComponent = GetMesh(); MeshComponent->DoesSocketExist(NAME_WeaponHandSocket))
     {
-        Weapon->SetupAttachment(Mesh, NAME_WeaponHandSocket);
+        Weapon->SetupAttachment(MeshComponent, NAME_WeaponHandSocket);
     }
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
