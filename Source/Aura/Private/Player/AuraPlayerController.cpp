@@ -200,7 +200,9 @@ void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
             // autorun to a destination.
 
             const auto Start = ControlledPawn->GetActorLocation();
-            if (const auto Path = UNavigationSystemV1::FindPathToLocationSynchronously(this, Start, CachedDestination))
+            const auto& End = CachedDestination;
+
+            if (const auto Path = UNavigationSystemV1::FindPathToLocationSynchronously(this, Start, End))
             {
                 // Reset the state of the previous spline path calculated
                 Spline->ClearSplinePoints();
