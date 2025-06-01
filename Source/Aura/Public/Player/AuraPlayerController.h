@@ -65,6 +65,7 @@ private:
     TScriptInterface<IEnemyInterface> CurrentActorUnderCursor{ nullptr };
 
     void CursorTrace();
+    void AutoRun();
 
     UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent();
 

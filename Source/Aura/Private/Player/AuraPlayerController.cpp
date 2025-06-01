@@ -21,11 +21,43 @@ AAuraPlayerController::AAuraPlayerController()
     Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
+void AAuraPlayerController::AutoRun()
+{
+    if (bAutoRunning)
+    {
+        if (const auto ControlledPawn = GetPawn())
+        {
+            const auto WorldLocation = ControlledPawn->GetActorLocation();
+            const auto LocationOnSpline =
+                Spline->FindLocationClosestToWorldLocation(WorldLocation, ESplineCoordinateSpace::World);
+            const auto Direction =
+                Spline->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
+            ControlledPawn->AddMovementInput(Direction);
+
+            const int32 NumberOfSplinePoints = Spline->GetNumberOfSplinePoints();
+            // Use the last spline point rather than CachedDestination, just in case the CachedDestination is not
+            // reachable via NavMesh routes. This way we stop at the spline end
+            const auto TargetDestination =
+                Spline->GetSplinePointAt(NumberOfSplinePoints - 1, ESplineCoordinateSpace::World);
+
+            // ReSharper disable once CppTooWideScopeInitStatement
+            const float DistanceToDestination = (LocationOnSpline - TargetDestination.Position).Length();
+            if (DistanceToDestination <= AutoRunAcceptanceRadius)
+            {
+                // We have got close enough to the target, so stop auto-running
+                bAutoRunning = false;
+            }
+        }
+    }
+}
+
 void AAuraPlayerController::PlayerTick(const float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
 
     CursorTrace();
+
+    AutoRun();
 }
 
 EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext& Context) const
@@ -206,13 +238,16 @@ void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
             {
                 // Reset the state of the previous spline path calculated
                 Spline->ClearSplinePoints();
-                for (const auto& PointPoint : Path->PathPoints)
+                if (Path->IsValid())
                 {
-                    Spline->AddSplinePoint(PointPoint, ESplineCoordinateSpace::World);
+                    for (const auto& PointPoint : Path->PathPoints)
+                    {
+                        Spline->AddSplinePoint(PointPoint, ESplineCoordinateSpace::World);
 
-                    DrawDebugSphere(GetWorld(), PointPoint, 8.f, 8, FColor::Green, false, 5.f);
+                        DrawDebugSphere(GetWorld(), PointPoint, 8.f, 8, FColor::Green, false, 5.f);
+                    }
+                    bAutoRunning = true;
                 }
-                bAutoRunning = true;
             }
             else
             {
