@@ -157,17 +157,20 @@ UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponen
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
 {
+    UE_LOG(LogTemp, Verbose, TEXT("Input_AbilityInputPressed: %s"), *InGameplayTag.ToString());
     GetAeonAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
 {
+    UE_LOG(LogTemp, Verbose, TEXT("Input_AbilityInputReleased: %s"), *InGameplayTag.ToString());
     GetAeonAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputHeld(const FGameplayTag InGameplayTag)
 {
+    UE_LOG(LogTemp, Verbose, TEXT("Input_AbilityInputHeld: %s"), *InGameplayTag.ToString());
     GetAeonAbilitySystemComponent()->OnAbilityInputHeld(InGameplayTag);
 }
