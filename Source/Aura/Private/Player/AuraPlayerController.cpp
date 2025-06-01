@@ -74,8 +74,6 @@ void AAuraPlayerController::SetupInputComponent()
 
     EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
 
-    // An ugly hack for now is that we do not
-
     InputConfig->BindNativeInputAction(EnhancedInputComponent,
                                        AuraGameplayTags::Input_Mouse_LeftButton,
                                        ETriggerEvent::Started,
