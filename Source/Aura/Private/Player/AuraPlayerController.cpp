@@ -1,11 +1,15 @@
 #include "Player/AuraPlayerController.h"
 #include "Aeon/AbilitySystem/AeonAbilitySystemComponent.h"
 #include "Aeon/Input/AeonInputConfig.h"
+#include "AuraGameplayTags.h"
+#include "Components/SplineComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "Interaction/EnemyInterface.h"
 #include "Misc/DataValidation.h"
+#include "NavigationPath.h"
+#include "NavigationSystem.h"
 #include "Player/AuraPlayerState.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AuraPlayerController)
@@ -13,6 +17,8 @@
 AAuraPlayerController::AAuraPlayerController()
 {
     bReplicates = true;
+
+    Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
 void AAuraPlayerController::PlayerTick(const float DeltaTime)
@@ -67,6 +73,24 @@ void AAuraPlayerController::SetupInputComponent()
     checkf(MoveAction, TEXT("MoveAction not specified"));
 
     EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+
+    // An ugly hack for now is that we do not
+
+    InputConfig->BindNativeInputAction(EnhancedInputComponent,
+                                       AuraGameplayTags::Input_Mouse_LeftButton,
+                                       ETriggerEvent::Started,
+                                       this,
+                                       &ThisClass::Input_LeftMouseButtonInputPressed);
+    InputConfig->BindNativeInputAction(EnhancedInputComponent,
+                                       AuraGameplayTags::Input_Mouse_LeftButton,
+                                       ETriggerEvent::Completed,
+                                       this,
+                                       &ThisClass::Input_LeftMouseButtonInputReleased);
+    InputConfig->BindNativeInputAction(EnhancedInputComponent,
+                                       AuraGameplayTags::Input_Mouse_LeftButton,
+                                       ETriggerEvent::Triggered,
+                                       this,
+                                       &ThisClass::Input_LeftMouseButtonInputHeld);
 
     InputConfig->BindAbilityInputAction(EnhancedInputComponent,
                                         this,
@@ -152,6 +176,78 @@ UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponen
         AeonAbilitySystemComponent = CastChecked<UAeonAbilitySystemComponent>(PS->GetAbilitySystemComponent());
     }
     return AeonAbilitySystemComponent;
+}
+
+void AAuraPlayerController::Input_LeftMouseButtonInputPressed()
+{
+    // UE_LOG(LogTemp, Verbose, TEXT("Input_LeftMouseButtonInputPressed"));
+    bTargeting = nullptr != CurrentActorUnderCursor;
+    bAutoRunning = false;
+}
+
+void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
+{
+    UE_LOG(LogTemp, Verbose, TEXT("Input_LeftMouseButtonInputReleased"));
+    if (bTargeting)
+    {
+        GetAeonAbilitySystemComponent()->OnAbilityInputReleased(AuraGameplayTags::Input_Mouse_LeftButton, false);
+    }
+    else
+    {
+        // ReSharper disable once CppTooWideScopeInitStatement
+        const auto ControlledPawn = GetPawn();
+        if (ControlledPawn && FollowTime <= ShortPressThreshold)
+        {
+            // We get in this block if the press was short enough, and thus we consider the input to be a request to
+            // autorun to a destination.
+
+            const auto Start = ControlledPawn->GetActorLocation();
+            if (const auto Path = UNavigationSystemV1::FindPathToLocationSynchronously(this, Start, CachedDestination))
+            {
+                // Reset the state of the previous spline path calculated
+                Spline->ClearSplinePoints();
+                for (const auto& PointPoint : Path->PathPoints)
+                {
+                    Spline->AddSplinePoint(PointPoint, ESplineCoordinateSpace::World);
+
+                    DrawDebugSphere(GetWorld(), PointPoint, 8.f, 8, FColor::Green, false, 5.f);
+                }
+                bAutoRunning = true;
+            }
+            else
+            {
+                UE_LOG(LogTemp,
+                       Warning,
+                       TEXT("Input_LeftMouseButtonInputReleased: No path found to destination point"));
+            }
+        }
+        FollowTime = 0.f;
+        bTargeting = false;
+    }
+}
+
+void AAuraPlayerController::Input_LeftMouseButtonInputHeld()
+{
+    UE_LOG(LogTemp, Verbose, TEXT("Input_LeftMouseButtonInputHeld"));
+    if (bTargeting)
+    {
+        GetAeonAbilitySystemComponent()->OnAbilityInputHeld(AuraGameplayTags::Input_Mouse_LeftButton, false);
+    }
+    else
+    {
+        FollowTime += GetWorld()->GetDeltaSeconds();
+
+        if (FHitResult Hit; GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+        {
+            CachedDestination = Hit.ImpactPoint;
+        }
+
+        if (const auto ControlledPawn = GetPawn())
+        {
+            const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+            ControlledPawn->AddMovementInput(WorldDirection);
+        }
+    }
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst

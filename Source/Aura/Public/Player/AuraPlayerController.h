@@ -6,6 +6,7 @@
 #include "UI/Widget/AuraWidgetController.h"
 #include "AuraPlayerController.generated.h"
 
+class USplineComponent;
 class UAeonAbilitySystemComponent;
 class UAeonInputConfig;
 struct FInputActionValue;
@@ -43,6 +44,21 @@ private:
     UPROPERTY()
     TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
 
+    /** Target ot click to move. */
+    FVector CachedDestination{ FVector::ZeroVector };
+    float FollowTime{ 0.f };
+    float ShortPressThreshold{ 0.5f };
+    bool bAutoRunning{ false };
+    bool bTargeting{ false };
+
+    /** The radius into which the player must move to complete autorun. */
+    UPROPERTY(EditDefaultsOnly)
+    float AutoRunAcceptanceRadius{ 50.f };
+
+    /** The spline we use to guide our autorun. */
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<USplineComponent> Spline{ nullptr };
+
     void Move(const FInputActionValue& InputActionValue);
 
     TScriptInterface<IEnemyInterface> LastActorUnderCursor{ nullptr };
@@ -52,6 +68,9 @@ private:
 
     UAeonAbilitySystemComponent* GetAeonAbilitySystemComponent();
 
+    void Input_LeftMouseButtonInputPressed();
+    void Input_LeftMouseButtonInputReleased();
+    void Input_LeftMouseButtonInputHeld();
     void Input_AbilityInputPressed(const FGameplayTag InGameplayTag);
     void Input_AbilityInputReleased(const FGameplayTag InGameplayTag);
     void Input_AbilityInputHeld(const FGameplayTag InGameplayTag);
