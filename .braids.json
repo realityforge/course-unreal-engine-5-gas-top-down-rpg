@@ -4,7 +4,7 @@
     "Plugins/Aeon": {
       "url": "https://github.com/realityforge/Aeon.git",
       "branch": "main",
-      "revision": "5c7c541b03a6770806c792e7372d844858fa43de"
+      "revision": "842b06a4dec9b8245bbe21f7530c1f0c3a3e4e14"
     },
     "Plugins/MDMetaDataEditor": {
       "url": "https://github.com/DoubleDeez/MDMetaDataEditor.git",
