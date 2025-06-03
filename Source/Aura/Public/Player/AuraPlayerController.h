@@ -44,6 +44,9 @@ private:
     UPROPERTY()
     TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
 
+    /** Cached hit result under cursor for this frame. */
+    FHitResult CursorHit;
+
     /** Target ot click to move. */
     FVector CachedDestination{ FVector::ZeroVector };
     float FollowTime{ 0.f };

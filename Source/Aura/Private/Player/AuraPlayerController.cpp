@@ -168,7 +168,6 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 
 void AAuraPlayerController::CursorTrace()
 {
-    FHitResult CursorHit;
     GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
     if (CursorHit.bBlockingHit)
     {
@@ -269,9 +268,9 @@ void AAuraPlayerController::Input_LeftMouseButtonInputHeld()
     {
         FollowTime += GetWorld()->GetDeltaSeconds();
 
-        if (FHitResult Hit; GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+        if (CursorHit.bBlockingHit)
         {
-            CachedDestination = Hit.ImpactPoint;
+            CachedDestination = CursorHit.ImpactPoint;
         }
 
         if (const auto ControlledPawn = GetPawn())
