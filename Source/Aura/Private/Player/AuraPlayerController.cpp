@@ -134,9 +134,11 @@ void AAuraPlayerController::BeginPlay()
     Super::BeginPlay();
     checkf(InputConfig, TEXT("InputConfig not specified"));
 
-    const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-    checkf(Subsystem, TEXT("Unable to locate EnhancedInputLocalPlayerSubsystem. Misconfigured project?"));
-    Subsystem->AddMappingContext(InputConfig->GetDefaultMappingContext(), 0);
+    if (const auto Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+    {
+        // Subsystem not present on server if the client is not local
+        Subsystem->AddMappingContext(InputConfig->GetDefaultMappingContext(), 0);
+    }
 
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
