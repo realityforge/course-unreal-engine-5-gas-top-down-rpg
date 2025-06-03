@@ -235,8 +235,6 @@ void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
                     for (const auto& PointPoint : Path->PathPoints)
                     {
                         Spline->AddSplinePoint(PointPoint, ESplineCoordinateSpace::World);
-
-                        DrawDebugSphere(GetWorld(), PointPoint, 8.f, 8, FColor::Green, false, 5.f);
                     }
                     bAutoRunning = true;
                 }
