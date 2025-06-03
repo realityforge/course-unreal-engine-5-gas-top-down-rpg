@@ -210,14 +210,12 @@ UAeonAbilitySystemComponent* AAuraPlayerController::GetAeonAbilitySystemComponen
 
 void AAuraPlayerController::Input_LeftMouseButtonInputPressed()
 {
-    // UE_LOG(LogTemp, Verbose, TEXT("Input_LeftMouseButtonInputPressed"));
     bTargeting = nullptr != CurrentActorUnderCursor;
     bAutoRunning = false;
 }
 
 void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
 {
-    UE_LOG(LogTemp, Verbose, TEXT("Input_LeftMouseButtonInputReleased"));
     if (bTargeting)
     {
         GetAeonAbilitySystemComponent()->OnAbilityInputReleased(AuraGameplayTags::Input_Mouse_LeftButton, false);
@@ -263,7 +261,6 @@ void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
 
 void AAuraPlayerController::Input_LeftMouseButtonInputHeld()
 {
-    UE_LOG(LogTemp, Verbose, TEXT("Input_LeftMouseButtonInputHeld"));
     if (bTargeting)
     {
         GetAeonAbilitySystemComponent()->OnAbilityInputHeld(AuraGameplayTags::Input_Mouse_LeftButton, false);
@@ -288,20 +285,17 @@ void AAuraPlayerController::Input_LeftMouseButtonInputHeld()
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputPressed(const FGameplayTag InGameplayTag)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("Input_AbilityInputPressed: %s"), *InGameplayTag.ToString());
     GetAeonAbilitySystemComponent()->OnAbilityInputPressed(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputReleased(const FGameplayTag InGameplayTag)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("Input_AbilityInputReleased: %s"), *InGameplayTag.ToString());
     GetAeonAbilitySystemComponent()->OnAbilityInputReleased(InGameplayTag);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AAuraPlayerController::Input_AbilityInputHeld(const FGameplayTag InGameplayTag)
 {
-    UE_LOG(LogTemp, Verbose, TEXT("Input_AbilityInputHeld: %s"), *InGameplayTag.ToString());
     GetAeonAbilitySystemComponent()->OnAbilityInputHeld(InGameplayTag);
 }
