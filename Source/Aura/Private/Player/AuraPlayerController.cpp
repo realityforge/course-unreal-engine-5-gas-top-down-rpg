@@ -174,24 +174,19 @@ void AAuraPlayerController::CursorTrace()
         LastActorUnderCursor = CurrentActorUnderCursor;
         CurrentActorUnderCursor = CursorHit.GetActor();
 
-        if (LastActorUnderCursor)
+        if (CurrentActorUnderCursor != LastActorUnderCursor)
         {
-            if (CurrentActorUnderCursor != LastActorUnderCursor)
+            if (LastActorUnderCursor)
             {
                 // Last actor set, and does not match current actor => Unhighlight last
                 LastActorUnderCursor->UnHighlightActor();
-
-                if (CurrentActorUnderCursor)
-                {
-                    // Last actor set, Current actor set and actors do not match => Highlight current
-                    CurrentActorUnderCursor->HighlightActor();
-                }
             }
-        }
-        else if (CurrentActorUnderCursor)
-        {
-            // Current actor set, no last actor set => Highlight current
-            CurrentActorUnderCursor->HighlightActor();
+
+            if (CurrentActorUnderCursor)
+            {
+                // Last actor set, Current actor set and actors do not match => Highlight current
+                CurrentActorUnderCursor->HighlightActor();
+            }
         }
     }
 }
