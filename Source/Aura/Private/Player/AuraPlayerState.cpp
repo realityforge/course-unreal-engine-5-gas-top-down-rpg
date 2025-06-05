@@ -1,5 +1,4 @@
 #include "Player/AuraPlayerState.h"
-#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Net/UnrealNetwork.h"
 
@@ -7,19 +6,13 @@
 
 AAuraPlayerState::AAuraPlayerState()
 {
-    AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
-    AbilitySystemComponent->SetIsReplicated(true);
-    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+    GetAbilitySystemComponentFast()->SetIsReplicated(true);
+    GetAbilitySystemComponentFast()->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
     AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 
     // This is quite a high update frequency. Perhaps we should lower it in the final game
     SetNetUpdateFrequency(100.f);
-}
-
-UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const
-{
-    return AbilitySystemComponent;
 }
 
 void AAuraPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
