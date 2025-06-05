@@ -1,10 +1,12 @@
 #include "Player/AuraPlayerState.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Net/UnrealNetwork.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AuraPlayerState)
 
-AAuraPlayerState::AAuraPlayerState()
+AAuraPlayerState::AAuraPlayerState(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UAuraAbilitySystemComponent>(NAME_AbilitySystemComponent))
 {
     GetAbilitySystemComponentFast()->SetIsReplicated(true);
     GetAbilitySystemComponentFast()->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);

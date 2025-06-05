@@ -13,7 +13,7 @@ class AURA_API AAuraPlayerState : public AModularGasPlayerState
     GENERATED_BODY()
 
 public:
-    AAuraPlayerState();
+    explicit AAuraPlayerState(const FObjectInitializer& ObjectInitializer);
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
