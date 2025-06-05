@@ -70,7 +70,38 @@ void AModularGasCharacter::BeginPlay()
 void AModularGasCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
+    if (HasAuthority())
+    {
+        if (EAbilitySystemComponentSetupPolicy::OnPossess == SetupPolicy)
+        {
+            if (EAbilitySystemComponentOwnerPolicy::PlayerStateOwned == OwnerPolicy)
+            {
+                // ReSharper disable once CppTooWideScopeInitStatement
+                const auto AscPlayerState = GetPlayerState<IAbilitySystemInterface>();
+                if (ensureAlwaysMsgf(
+                        AscPlayerState,
+                        TEXT("On actor %s SetupPolicy=OnPossess and OwnerPolicy=PlayerStateOwned "
+                             "but the PlayerState object %s () does not implement IAbilitySystemInterface."),
+                        *GetActorNameOrLabel(),
+                        *GetNameSafe(GetPlayerState())))
+                {
+                    AbilitySystemComponent = AscPlayerState->GetAbilitySystemComponent();
+                    check(AbilitySystemComponent);
+                }
+            }
 
+            // Init AbilityActorInfo on the Server
+            InitAbilityActorInfo();
+        }
+    }
+}
+
+void AModularGasCharacter::OnRep_PlayerState()
+{
+    Super::OnRep_PlayerState();
+
+    checkf(!HasAuthority(),
+           TEXT("Assuming OnRep_PlayerState() is only called on client and thus ASC will never be doubly setup"));
     if (EAbilitySystemComponentSetupPolicy::OnPossess == SetupPolicy)
     {
         if (EAbilitySystemComponentOwnerPolicy::PlayerStateOwned == OwnerPolicy)
@@ -88,17 +119,6 @@ void AModularGasCharacter::PossessedBy(AController* NewController)
             }
         }
 
-        // Init AbilityActorInfo on the Server
-        InitAbilityActorInfo();
-    }
-}
-
-void AModularGasCharacter::OnRep_PlayerState()
-{
-    Super::OnRep_PlayerState();
-
-    if (EAbilitySystemComponentSetupPolicy::OnPossess == SetupPolicy)
-    {
         // Init AbilityActorInfo on the Server
         InitAbilityActorInfo();
     }
