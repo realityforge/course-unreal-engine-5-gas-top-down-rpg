@@ -33,7 +33,8 @@ public:
     FEffectAssetTagsSignature EffectAssetTags;
 
 protected:
-    void OnEffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
-                         const FGameplayEffectSpec& GameplayEffectSpec,
-                         FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
+    UFUNCTION(Client, Reliable)
+    void ClientOnEffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
+                               const FGameplayEffectSpec& GameplayEffectSpec,
+                               FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
 };

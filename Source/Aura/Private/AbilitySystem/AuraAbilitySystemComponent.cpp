@@ -4,11 +4,13 @@
 
 void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 {
-    OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::OnEffectApplied);
+    // On server when effect is applied, broadcast call to client
+    OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::ClientOnEffectApplied);
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
-void UAuraAbilitySystemComponent::OnEffectApplied(
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UAuraAbilitySystemComponent::ClientOnEffectApplied_Implementation(
     [[maybe_unused]] UAbilitySystemComponent* AbilitySystemComponent,
     const FGameplayEffectSpec& GameplayEffectSpec,
     [[maybe_unused]] FActiveGameplayEffectHandle ActiveGameplayEffectHandle)
