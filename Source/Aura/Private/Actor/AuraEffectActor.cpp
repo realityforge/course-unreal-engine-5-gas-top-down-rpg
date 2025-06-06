@@ -1,6 +1,7 @@
 #include "Actor/AuraEffectActor.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "Logging/StructuredLog.h"
 #include "Misc/DataValidation.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AuraEffectActor)
@@ -123,6 +124,10 @@ void AAuraEffectActor::OnBeginOverlap(AActor* TargetActor)
 
 void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
 {
+    if (!HasAuthority())
+    {
+        UE_LOGFMT(LogTemp, Error, "OnEndOverlap called on client....");
+    }
     if (EEffectApplicationPolicy::ApplyOnEndOverlap == InstantEffectApplicationPolicy
         && IsValid(InstantGameplayEffectClass))
     {
