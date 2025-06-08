@@ -27,55 +27,53 @@ EDataValidationResult UAuraProjectileSpell::IsDataValid(FDataValidationContext& 
 }
 #endif
 
-void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
-                                           const FGameplayAbilityActorInfo* ActorInfo,
-                                           const FGameplayAbilityActivationInfo ActivationInfo,
-                                           const FGameplayEventData* TriggerEventData)
+void UAuraProjectileSpell::SpawnProjectile() const
 {
-    Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-    if (HasAuthority(&ActivationInfo))
+    if (const auto AvatarActor = GetAvatarActorFromActorInfo())
     {
-        const auto AvatarActor = GetAvatarActorFromActorInfo();
-        if (const auto CombatInterface = Cast<ICombatInterface>(AvatarActor))
+        if (AvatarActor->HasAuthority())
         {
-            const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
-
-            FTransform SpawnTransform;
-            SpawnTransform.SetLocation(SocketLocation);
-
-            // TODO: Calculate the Projectile Rotation
-
-            const auto Owner = GetOwningActorFromActorInfo();
-            const auto Projectile =
-                GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass,
-                                                                SpawnTransform,
-                                                                Owner,
-                                                                Cast<APawn>(Owner),
-                                                                ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-
-            // TODO: Apply Effect for Damage? Apply Cue for Spawn?
-
-            if (Projectile)
+            if (const auto CombatInterface = Cast<ICombatInterface>(AvatarActor))
             {
-                Projectile->FinishSpawning(SpawnTransform);
+                const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
+
+                FTransform SpawnTransform;
+                SpawnTransform.SetLocation(SocketLocation);
+
+                // TODO: Calculate the Projectile Rotation
+
+                const auto Owner = GetOwningActorFromActorInfo();
+                const auto Projectile =
+                    GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass,
+                                                                    SpawnTransform,
+                                                                    Owner,
+                                                                    Cast<APawn>(Owner),
+                                                                    ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+
+                // TODO: Apply Effect for Damage? Apply Cue for Spawn?
+
+                if (Projectile)
+                {
+                    Projectile->FinishSpawning(SpawnTransform);
+                }
+                else
+                {
+                    UE_LOGFMT(LogTemp,
+                              Warning,
+                              "Ability {Name} failed to create Projectile of type {ProjectileClass} with Owner {Owner}",
+                              GetNameSafe(ProjectileClass),
+                              GetNameSafe(Owner));
+                }
             }
             else
             {
                 UE_LOGFMT(LogTemp,
                           Warning,
-                          "Ability {Name} failed to create Projectile of type {ProjectileClass} with Owner {Owner}",
-                          GetNameSafe(ProjectileClass),
-                          GetNameSafe(Owner));
+                          "Ability {Name} activated from AvatarActor {AvatarActor} "
+                          "which does not implement ICombatInterface",
+                          GetName(),
+                          GetNameSafe(AvatarActor));
             }
-        }
-        else
-        {
-            UE_LOGFMT(LogTemp,
-                      Warning,
-                      "Ability {Name} activated from AvatarActor {AvatarActor} "
-                      "which does not implement ICombatInterface",
-                      GetName(),
-                      GetNameSafe(AvatarActor));
         }
     }
 }
