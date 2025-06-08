@@ -49,4 +49,10 @@ namespace AuraGameplayTags
     AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Keyboard_3)
     AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Keyboard_4)
 
+    // --------------------------------------------------- //
+    // Event Tags
+    // --------------------------------------------------- //
+
+    AURA_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Event_Montage_FireBolt)
+
 } // namespace AuraGameplayTags

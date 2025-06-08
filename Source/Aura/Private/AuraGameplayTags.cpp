@@ -74,4 +74,12 @@ namespace AuraGameplayTags
     UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Keyboard_3, "Input.Keyboard.3", "Input tag for 3 Key")
     UE_DEFINE_GAMEPLAY_TAG_COMMENT(Input_Keyboard_4, "Input.Keyboard.4", "Input tag for 4 Key")
 
+    // --------------------------------------------------- //
+    // Event Tags
+    // --------------------------------------------------- //
+
+    UE_DEFINE_GAMEPLAY_TAG_COMMENT(Event_Montage_FireBolt,
+                                   "Event.Montage.FireBolt",
+                                   "Event when a FireBolt is fired from Cast montage")
+
 } // namespace AuraGameplayTags
