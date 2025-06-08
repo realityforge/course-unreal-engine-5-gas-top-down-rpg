@@ -19,4 +19,7 @@ public:
     // the tutorial wanted to have an excuse to use MMC (Modifier Magnitude Calculation) class as alternate
     // way to experiment with calculating magnitudes.
     virtual int32 GetPlayerLevel();
+
+    /** Return the socket name on the weapon mesh from which projectiles are emitted. */
+    virtual FVector GetCombatSocketLocation();
 };

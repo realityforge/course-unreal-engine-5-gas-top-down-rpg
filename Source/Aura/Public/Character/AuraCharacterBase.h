@@ -21,7 +21,15 @@ public:
     virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
 
+#pragma region ICombatInterface
+    virtual FVector GetCombatSocketLocation() override;
+#pragma endregion
+
 private:
+    /** The socket name on the weapon mesh from which projectiles are emitted. */
+    UPROPERTY(EditAnywhere, Category = "Combat")
+    FName WeaponTipSocketName{ NAME_None };
+
     void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const;
 
 protected:

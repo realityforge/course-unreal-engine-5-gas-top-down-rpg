@@ -59,6 +59,7 @@ void URuleRangerEditorSubsystem::ScanObject(UObject* InObject)
                URuleRangerRuleSet* const RuleSet,
                URuleRangerRule* Rule,
                UObject* InnerInObject) mutable { return ProcessDemandScan(Config, RuleSet, Rule, InnerInObject); });
+    // TODO: Run data validation maybe?
 }
 
 void URuleRangerEditorSubsystem::ScanAndFixObject(UObject* InObject)
@@ -70,6 +71,7 @@ void URuleRangerEditorSubsystem::ScanAndFixObject(UObject* InObject)
                        UObject* InnerInObject) mutable {
                     return ProcessDemandScanAndFix(Config, RuleSet, Rule, InnerInObject);
                 });
+    // TODO: Run data validation maybe?
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
