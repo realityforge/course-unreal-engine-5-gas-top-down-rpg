@@ -13,15 +13,7 @@ AAuraCharacterBase::AAuraCharacterBase(const FObjectInitializer& ObjectInitializ
     PrimaryActorTick.bCanEverTick = false;
 
     Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
-
-    // To avoid a warning when opening abstract types in the editor, check that a
-    // socket exists before attempting to attach to it. The class will not be valid
-    // if a concrete class is missing this socket but this will be picked up in the
-    // IsDataValid() method.
-    if (const auto MeshComponent = GetMesh(); MeshComponent->DoesSocketExist(NAME_WeaponHandSocket))
-    {
-        Weapon->SetupAttachment(MeshComponent, NAME_WeaponHandSocket);
-    }
+    Weapon->SetupAttachment(GetMesh(), NAME_WeaponHandSocket);
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
@@ -52,11 +44,47 @@ EDataValidationResult AAuraCharacterBase::IsDataValid(FDataValidationContext& Co
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
         }
+        if (!WeaponTipSocketName.IsValid())
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
+                                                     "the property WeaponTipSocketName"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
+
+        // ReSharper disable once CppTooWideScopeInitStatement
+        const auto WeaponSkeletalMeshAsset = Weapon->GetSkeletalMeshAsset();
+        if (!IsValid(WeaponSkeletalMeshAsset))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
+                                                     "the property Weapon.SkeletalMeshAsset"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
+        else if (WeaponTipSocketName.IsValid() && nullptr == Weapon->GetSocketByName(WeaponTipSocketName))
+        {
+            const auto String =
+                FString::Printf(TEXT("Object %s has Weapon component that references StaticMeshAsset %s "
+                                     "but the asset does not have a socket named '%s' as expected"),
+                                *GetActorNameOrLabel(),
+                                *WeaponSkeletalMeshAsset->GetName(),
+                                *WeaponTipSocketName.ToString());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
     }
 
     return Result;
 }
 #endif
+
+FVector AAuraCharacterBase::GetCombatSocketLocation()
+{
+    check(Weapon);
+    return Weapon->GetSocketLocation(WeaponTipSocketName);
+}
 
 void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass,
                                            const float Level) const
