@@ -14,4 +14,6 @@ UAuraAssetManager& UAuraAssetManager::Get()
 void UAuraAssetManager::StartInitialLoading()
 {
     Super::StartInitialLoading();
+    // This does not seem to be needed anymore?
+    // UAbilitySystemGlobals::Get().InitGlobalData();
 }
