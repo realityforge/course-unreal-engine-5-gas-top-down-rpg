@@ -82,6 +82,15 @@ EDataValidationResult AAuraPlayerController::IsDataValid(FDataValidationContext&
             Context.AddError(FText::FromString(String));
             Result = EDataValidationResult::Invalid;
         }
+
+        if (!IsValid(ShiftAction))
+        {
+            const auto String = FString::Printf(TEXT("Object %s is not an abstract class but has not specified "
+                                                     "the property ShiftAction"),
+                                                *GetActorNameOrLabel());
+            Context.AddError(FText::FromString(String));
+            Result = EDataValidationResult::Invalid;
+        }
     }
 
     return Result;
@@ -105,6 +114,8 @@ void AAuraPlayerController::SetupInputComponent()
     checkf(MoveAction, TEXT("MoveAction not specified"));
 
     EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+    EnhancedInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &ThisClass::ShiftPressed);
+    EnhancedInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &ThisClass::ShiftReleased);
 
     InputConfig->BindNativeInputAction(EnhancedInputComponent,
                                        AuraGameplayTags::Input_Mouse_LeftButton,
@@ -212,11 +223,9 @@ void AAuraPlayerController::Input_LeftMouseButtonInputPressed()
 
 void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
 {
-    if (bTargeting)
-    {
-        GetAeonAbilitySystemComponent()->OnAbilityInputReleased(AuraGameplayTags::Input_Mouse_LeftButton, false);
-    }
-    else
+    GetAeonAbilitySystemComponent()->OnAbilityInputReleased(AuraGameplayTags::Input_Mouse_LeftButton, false);
+
+    if (!bTargeting && !bShiftKeyDown)
     {
         // ReSharper disable once CppTooWideScopeInitStatement
         const auto ControlledPawn = GetPawn();
@@ -255,7 +264,7 @@ void AAuraPlayerController::Input_LeftMouseButtonInputReleased()
 
 void AAuraPlayerController::Input_LeftMouseButtonInputHeld()
 {
-    if (bTargeting)
+    if (bTargeting || bShiftKeyDown)
     {
         GetAeonAbilitySystemComponent()->OnAbilityInputHeld(AuraGameplayTags::Input_Mouse_LeftButton, false);
     }

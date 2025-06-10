@@ -40,6 +40,8 @@ private:
 
     UPROPERTY(EditAnywhere, Category = "Input")
     TObjectPtr<UInputAction> MoveAction{ nullptr };
+    UPROPERTY(EditAnywhere, Category = "Input")
+    TObjectPtr<UInputAction> ShiftAction{ nullptr };
 
     UPROPERTY()
     TObjectPtr<UAeonAbilitySystemComponent> AeonAbilitySystemComponent{ nullptr };
@@ -63,6 +65,11 @@ private:
     TObjectPtr<USplineComponent> Spline{ nullptr };
 
     void Move(const FInputActionValue& InputActionValue);
+
+    bool bShiftKeyDown{ false };
+
+    void ShiftPressed() { bShiftKeyDown = true; }
+    void ShiftReleased() { bShiftKeyDown = false; }
 
     TScriptInterface<IEnemyInterface> LastActorUnderCursor{ nullptr };
     TScriptInterface<IEnemyInterface> CurrentActorUnderCursor{ nullptr };
