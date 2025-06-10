@@ -27,7 +27,8 @@ EDataValidationResult UAuraProjectileSpell::IsDataValid(FDataValidationContext& 
 }
 #endif
 
-void UAuraProjectileSpell::SpawnProjectile() const
+// ReSharper disable once CppUE4BlueprintCallableFunctionMayBeConst
+void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
     if (const auto AvatarActor = GetAvatarActorFromActorInfo())
     {
@@ -35,12 +36,16 @@ void UAuraProjectileSpell::SpawnProjectile() const
         {
             if (const auto CombatInterface = Cast<ICombatInterface>(AvatarActor))
             {
-                const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();
+                const auto SocketLocation = CombatInterface->GetCombatSocketLocation();
+                auto Rotation = (ProjectileTargetLocation - SocketLocation).Rotation();
+
+                // Without this, the projectile will drop as most enemies are lower so this
+                // keeps the fireball parallel to the ground
+                Rotation.Pitch = 0.f;
 
                 FTransform SpawnTransform;
                 SpawnTransform.SetLocation(SocketLocation);
-
-                // TODO: Calculate the Projectile Rotation
+                SpawnTransform.SetRotation(Rotation.Quaternion());
 
                 const auto Owner = GetOwningActorFromActorInfo();
                 const auto Projectile =

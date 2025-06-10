@@ -21,5 +21,5 @@ private:
     TSubclassOf<AAuraProjectile> ProjectileClass{ nullptr };
 
     UFUNCTION(BlueprintCallable, Category = "Projectile")
-    void SpawnProjectile() const;
+    void SpawnProjectile(const FVector& ProjectileTargetLocation);
 };
