@@ -2,6 +2,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "MotionWarpingComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
@@ -36,6 +37,8 @@ AAuraCharacter::AAuraCharacter(const FObjectInitializer& ObjectInitializer)
     GetCharacterMovement()->bConstrainToPlane = true;
     GetCharacterMovement()->bSnapToPlaneAtStart = true;
 
+    MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>("MotionWarping");
+
     bUseControllerRotationPitch = false;
     bUseControllerRotationYaw = false;
     bUseControllerRotationRoll = false;
@@ -57,9 +60,19 @@ void AAuraCharacter::InitAbilityActorInfo()
     Super::InitAbilityActorInfo();
 }
 
+void AAuraCharacter::SetFacingTarget(const FVector& TargetLocation)
+{
+    GetMotionWarpingComponent()->AddOrUpdateWarpTargetFromLocation(NAME_FacingTarget_WarpTargetName, TargetLocation);
+}
+
 int32 AAuraCharacter::GetPlayerLevel()
 {
     const auto AuraPlayerState = GetPlayerState<AAuraPlayerState>();
     check(AuraPlayerState);
     return AuraPlayerState->GetPlayerLevel();
+}
+
+void AAuraCharacter::UpdateFacingTarget(const FVector& Target)
+{
+    SetFacingTarget(Target);
 }

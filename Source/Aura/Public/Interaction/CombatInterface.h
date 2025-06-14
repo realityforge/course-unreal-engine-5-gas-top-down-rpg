@@ -4,7 +4,7 @@
 #include "UObject/Interface.h"
 #include "CombatInterface.generated.h"
 
-UINTERFACE(MinimalAPI)
+UINTERFACE(MinimalAPI, BlueprintType, NotBlueprintable)
 class UCombatInterface : public UInterface
 {
     GENERATED_BODY()
@@ -21,5 +21,9 @@ public:
     virtual int32 GetPlayerLevel();
 
     /** Return the socket name on the weapon mesh from which projectiles are emitted. */
+    UFUNCTION(BlueprintCallable)
     virtual FVector GetCombatSocketLocation();
+
+    UFUNCTION(BlueprintCallable)
+    virtual void UpdateFacingTarget(const FVector& Target);
 };

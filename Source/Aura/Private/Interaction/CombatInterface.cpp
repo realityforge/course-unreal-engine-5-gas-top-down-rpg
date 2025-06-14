@@ -11,3 +11,8 @@ FVector ICombatInterface::GetCombatSocketLocation()
 {
     return FVector::ZeroVector;
 }
+
+void ICombatInterface::UpdateFacingTarget([[maybe_unused]] const FVector& Target)
+{
+    // No action
+}
