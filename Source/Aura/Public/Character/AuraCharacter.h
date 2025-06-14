@@ -12,10 +12,10 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(VisibleAnywhere)
     TObjectPtr<UCameraComponent> CameraComponent{ nullptr };
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(VisibleAnywhere)
     TObjectPtr<USpringArmComponent> SpringArmComponent{ nullptr };
 
 protected:
