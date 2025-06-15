@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "AuraProjectile.generated.h"
 
+class UNiagaraSystem;
 class USphereComponent;
 class UProjectileMovementComponent;
 
@@ -14,6 +15,8 @@ class AURA_API AAuraProjectile : public AActor
 
 public:
     AAuraProjectile();
+
+    virtual void Destroyed() override;
 
 protected:
     virtual void BeginPlay() override;
@@ -32,4 +35,15 @@ private:
 
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<USphereComponent> Sphere{ nullptr };
+
+    UPROPERTY(EditAnywhere, meta = (RuleRangerRequired))
+    TObjectPtr<UNiagaraSystem> ImpactEffect{ nullptr };
+
+    UPROPERTY(EditAnywhere, meta = (RuleRangerRequired))
+    TObjectPtr<USoundBase> ImpactSound{ nullptr };
+
+    /** flag indicating whether the overlap effects have been played or not */
+    bool bHit{ false };
+
+    void PlayImpactCosmetics() const;
 };
