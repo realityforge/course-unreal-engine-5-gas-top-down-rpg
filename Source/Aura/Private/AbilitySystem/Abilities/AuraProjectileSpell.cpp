@@ -47,12 +47,11 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
                 SpawnTransform.SetLocation(SocketLocation);
                 SpawnTransform.SetRotation(Rotation.Quaternion());
 
-                const auto Owner = GetOwningActorFromActorInfo();
                 const auto Projectile =
                     GetWorld()->SpawnActorDeferred<AAuraProjectile>(ProjectileClass,
                                                                     SpawnTransform,
-                                                                    Owner,
-                                                                    Cast<APawn>(Owner),
+                                                                    AvatarActor,
+                                                                    CastChecked<APawn>(AvatarActor),
                                                                     ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
                 // TODO: Apply Effect for Damage? Apply Cue for Spawn?
@@ -65,9 +64,10 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
                 {
                     UE_LOGFMT(LogTemp,
                               Warning,
-                              "Ability {Name} failed to create Projectile of type {ProjectileClass} with Owner {Owner}",
+                              "Ability {Name} failed to create Projectile of type {ProjectileClass} "
+                              "with AvatarActor {AvatarActor}",
                               GetNameSafe(ProjectileClass),
-                              GetNameSafe(Owner));
+                              GetNameSafe(AvatarActor));
                 }
             }
             else
