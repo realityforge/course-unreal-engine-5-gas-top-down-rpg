@@ -42,6 +42,12 @@ private:
     UPROPERTY(EditAnywhere, meta = (RuleRangerRequired))
     TObjectPtr<USoundBase> ImpactSound{ nullptr };
 
+    UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+    TObjectPtr<UAudioComponent> LoopingAudio{ nullptr };
+
+    UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = true))
+    TObjectPtr<USoundBase> LoopingSound{ nullptr };
+
     /** flag indicating whether the overlap effects have been played or not */
     bool bHit{ false };
 

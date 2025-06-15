@@ -1,4 +1,5 @@
 #include "Actor/AuraProjectile.h"
+#include "Components/AudioComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -31,6 +32,10 @@ void AAuraProjectile::PlayImpactCosmetics() const
 {
     UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
     UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation(), FRotator::ZeroRotator);
+    if (LoopingSound)
+    {
+        LoopingAudio->Stop();
+    }
 }
 
 void AAuraProjectile::Destroyed()
@@ -54,6 +59,11 @@ void AAuraProjectile::BeginPlay()
     Super::BeginPlay();
 
     Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAuraProjectile::OnSphereOverlap);
+
+    if (LoopingSound)
+    {
+        LoopingAudio = UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent());
+    }
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
