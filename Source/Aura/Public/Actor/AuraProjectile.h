@@ -36,10 +36,10 @@ private:
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<USphereComponent> Sphere{ nullptr };
 
-    UPROPERTY(EditAnywhere, meta = (RuleRangerRequired))
+    UPROPERTY(EditDefaultsOnly, meta = (RuleRangerRequired))
     TObjectPtr<UNiagaraSystem> ImpactEffect{ nullptr };
 
-    UPROPERTY(EditAnywhere, meta = (RuleRangerRequired))
+    UPROPERTY(EditDefaultsOnly, meta = (RuleRangerRequired))
     TObjectPtr<USoundBase> ImpactSound{ nullptr };
 
     UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
