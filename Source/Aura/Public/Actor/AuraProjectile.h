@@ -30,6 +30,9 @@ protected:
                          const FHitResult& SweepResult);
 
 private:
+    UPROPERTY(EditDefaultsOnly)
+    float LifeSpan{ 15.f };
+
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<UProjectileMovementComponent> ProjectileMovement{ nullptr };
 
